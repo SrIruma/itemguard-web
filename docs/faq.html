@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ · ItemGuard</title>
+<meta name="description" content="FAQ">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="FAQ · ItemGuard">
+<meta property="og:description" content="FAQ">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="es" href="https://sriruma.github.io/itemguard-web/es/docs/faq.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/faq.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="faq">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Search</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="author &amp; maintainer">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentation</p>
+        <a href="/itemguard-web/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/docs/database.html">Database</a>
+        <a href="/itemguard-web/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>FAQ</h1>
+<p class="lead">The questions that come up most often, answered short.</p>
+
+<h2 id="what-does-it-need-to-run">What does it need to run?</h2>
+<p>Paper 1.21 or newer and Java 21. No other plugin is required: the SQLite, MySQL and PostgreSQL drivers ship inside the jar, and LuckPerms is used when installed but never needed.</p>
+
+<h2 id="does-it-support-spigot-forge-or-fabric">Does it support Spigot, Forge or Fabric?</h2>
+<p>ItemGuard is a Paper plugin. It needs the Paper API at 1.21 or newer; a fork with the same plugin API works, and Paper itself is the supported target.</p>
+
+<h2 id="do-i-need-a-database-server">Do I need a database server?</h2>
+<p>No. SQLite is the default: a single <code>itemguard.db</code> file, nothing leaves the machine. MySQL and PostgreSQL are supported when you outgrow a file. Either way, one server per database &mdash; enforced, not advised. See <a href="database.html">Database</a>.</p>
+
+<h2 id="can-i-run-the-same-plugin-on-two-servers-with-one-database">Can I run the same plugin on two servers with one database?</h2>
+<p>No, and the plugin refuses instead of silently misbehaving. Its tables are full of world names and coordinates, which only mean something to the world they came from. Give each server its own schema.</p>
+
+<h2 id="where-is-the-item-rsquo-s-id-kept">Where is the item&rsquo;s id kept?</h2>
+<p>In the item&rsquo;s NBT, written at delivery time. The record in the database says where it is; the two are kept in step, and the plugin never drops items on the ground or duplicates them.</p>
+
+<h2 id="why-can-rsquo-t-my-players-pick-up-or-drop-their-bought-item">Why can&rsquo;t my players pick up or drop their bought item?</h2>
+<p>Because <code>droppable</code> and <code>pickupable</code> default to off &mdash; a conservative default, so protection is on from the first delivery. A dropped un-pickupable item is sealed where it falls and the owner takes it back with <code>/ig reclaim</code>. Give away what you mean: see <a href="flags.html">Flags</a>.</p>
+
+<h2 id="what-happens-when-a-container-with-my-item-explodes">What happens when a container with my item explodes?</h2>
+<p>If <code>explosion-protected</code> is on (the default), the block survives and the item with it. When an item is genuinely lost, a recoverable copy can be rebuilt with <code>/ig regenerate</code>, or pulled back from wherever it is with <code>/ig recover</code>.</p>
+
+<h2 id="someone-bought-something-and-it-is-gone-how-do-i-make-it-rig">Someone bought something and it is gone. How do I make it right?</h2>
+<p>Ask for the facts: <code>/ig info &lt;id&gt;</code> opens the item's record, and the history button on it opens the full event list, including the last place it was seen. Then decide between <code>/ig recover</code> (take it back in one piece) and <code>/ig regenerate</code> (rebuild it from the stored copy).</p>
+
+<h2 id="who-counts-as-the-owner-and-how-does-a-sale-get-handed-over">Who counts as the owner, and how does a sale get handed over?</h2>
+<p>The owner is the one protection answers to: the only one who may break the placed block, the one explosions rescue the item for, and the one sealed items return to. <code>/ig owner</code> hands the item <em>and</em> its ownership over, confirmed by the current owner &mdash; nobody can quietly move an item out from under a hijacked account. See <a href="ownership.html">Ownership &amp; transfer</a>.</p>
+
+<h2 id="how-do-i-let-my-store-plugin-fulfil-purchases-without-full-a">How do I let my store plugin fulfil purchases without full admin?</h2>
+<p>The console is blocked except for the subcommands in <code>console.allow</code>, which defaults to <code>give</code> &mdash; a store plugin such as Tebex can run <code>/ig give &lt;player&gt; &lt;template&gt;</code> and nothing else. Read-only commands (<code>version</code>, <code>reload</code>, <code>help</code>, <code>integrations</code>, <code>permissions</code>, <code>allow</code>) bypass the list.</p>
+
+<h2 id="why-does-nothing-work-mdash-i-rsquo-m-an-operator-and-i-stil">Why does nothing work&mdash;I&rsquo;m an operator and I still get refused?</h2>
+<p>Every permission defaults to <code>false</code>, for operators included. Grant <code>itemguard.admin</code>, or on a test server where everyone joins as operator set <code>console.ops-are-admins: true</code>. <code>/ig permissions</code> shows exactly what you hold. See <a href="permissions.html">Permissions</a>.</p>
+
+<h2 id="can-i-change-the-wording-or-translate-it-myself">Can I change the wording, or translate it myself?</h2>
+<p>Yes. Every message comes from <code>plugins/ItemGuard/translations/</code>, one editable file per language with documented colour and placeholder support, and <code>/ig reload</code> picks changes up without a restart. See <a href="translations.html">Translations</a>.</p>
+
+<h2 id="is-it-free-and-where-do-i-get-it">Is it free, and where do I get it?</h2>
+<p>ItemGuard is a paid plugin, sold on BuiltByBit. If you would rather see it run before you spend anything, BuiltByBit has a trial server with the plugin already installed &mdash; you join it from the plugin&rsquo;s listing.</p>
+
+<h2 id="can-i-try-it-first">Can I try it before I buy?</h2>
+<p>Yes. The <a href="quickstart.html">quick start</a> above is the whole installation; the trial server is for playing with the plugin in game. You join it from the listing on BuiltByBit.</p>
+
+<h2 id="did-something-break-what-do-i-read-first">Did something break. What do I read first?</h2>
+<p>The start-up block, which prints facts &mdash; state, engine in use with credentials masked, and a named problem with a suggested fix when it cannot start. The whole thing also goes to <code>plugins/ItemGuard/logs/</code> when file logging is on. Then the FAQ page you are on. Then <a href="https://github.com/SrIruma/itemguard-web/issues">the issue tracker</a>, or the email address at the bottom of the page if you would rather not use an account.</p>
+
+<h2 id="how-do-i-report-a-problem">How do I report a problem?</h2>
+<p>Either way at the bottom of this page:</p>
+<ul>
+<li><strong>An issue</strong> on <a href="https://github.com/SrIruma/itemguard-web/issues">the documentation repository</a>. It is public, anyone can open one, and it needs no account beyond GitHub. Search the open issues first &mdash; a lot of reports are the same config mistake, and finding it already answered is faster than waiting.</li>
+<li><strong>An email</strong> to MrTsumugi@proton.me, which reaches both of us. Slower, and it has no public record, so it suits anything you would rather not post in the open.</li>
+</ul>
+<p>Either way, the start-up block and <code>plugins/ItemGuard/logs/</code> are the first thing worth attaching: most problems are answered by the line that names the engine in use and the problem it found.</p>
+<div class="note"><strong>Abuse and security reports do not go in public.</strong> If the report is about someone abusing the plugin rather than it misbehaving, use the email. A public issue is a permanent, searchable record.</div>
+      </article>
+      <aside class="toc" id="toc" aria-label="On this page">
+        <p class="toc-label">On this page</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Report a problem</h2>
+      <p class="support-lead">Something not working, or behaving in a way you did not expect?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Open an issue
+          </h3>
+          <p>Public GitHub issues on the documentation site. Search first: it may already be known.</p>
+          <span class="card-more">Search the issues first →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Email us
+          </h3>
+          <p>Reaches both of us. Slow, but it works without an account.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Previous / Next"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Search the docs…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> navigate</span>
+      <span><kbd>Enter</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentation for the Paper 1.21 plugin.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

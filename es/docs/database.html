@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base de datos · ItemGuard</title>
+<meta name="description" content="Base de datos">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Base de datos · ItemGuard">
+<meta property="og:description" content="Base de datos">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="en" href="https://sriruma.github.io/itemguard-web/docs/database.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/database.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="database">
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/es/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Buscar</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Idioma"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="autor y mantenedor">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentación">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentación</p>
+        <a href="/itemguard-web/es/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/es/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/es/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/es/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/es/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/es/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/es/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/es/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/es/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/es/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/es/docs/database.html">Database</a>
+        <a href="/itemguard-web/es/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Base de datos</h1>
+<p class="lead">SQLite de serie, sin configurar nada. MySQL o PostgreSQL cuando un archivo se queda corto. Y la comprobación que impide que dos servidores actúen sobre el mundo equivocado.</p>
+<p class="meta">Un archivo, o un servidor &#183; comprobado en el arranque</p>
+
+<h2 id="que-guarda">Qué guarda</h2>
+<p>Una fila por objeto rastreado, y nada más:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Campo</th><th>Qué es</th></tr></thead>
+<tbody>
+<tr><td data-label="Campo"><code>id</code></td><td data-label="Qué es">El identificador, el mismo que va en el NBT del objeto</td></tr>
+<tr><td data-label="Campo"><code>owner</code></td><td data-label="Qué es">El UUID del dueño</td></tr>
+<tr><td data-label="Campo"><code>state</code></td><td data-label="Qué es">Dónde está: colocado, en el suelo, en una mano, en un contenedor</td></tr>
+<tr><td data-label="Campo"><code>location</code></td><td data-label="Qué es">Coordenadas, mundo y, si está en un contenedor, su id</td></tr>
+<tr><td data-label="Campo"><code>template</code></td><td data-label="Qué es">La plantilla de la que salió, si salió de alguna</td></tr>
+<tr><td data-label="Campo"><code>flags</code></td><td data-label="Qué es">Las siete, tal como están en ese objeto</td></tr>
+<tr><td data-label="Campo"><code>history</code></td><td data-label="Qué es">Los eventos, con fecha</td></tr>
+</tbody>
+</table>
+</div>
+<p>La copia del objeto en sí, con su NBT completo, está en el mundo, no en la base de datos. Eso es lo que permite <a href="commands.html">regenerar</a> un objeto perdido: la base de datos sabe qué era, y el mundo tenía la pieza.</p>
+
+<h2 id="sqlite">SQLite</h2>
+<p>Es el valor por defecto y no hay nada que configurar. El archivo se crea en el primer arranque:</p>
+<pre><code>plugins/ItemGuard/itemguard.db</code></pre>
+<p>Nada sale de la máquina. Para la mayoría de servidores un plugin de esto, el archivo es suficiente y es la opción que menos cosas puede salir mal.</p>
+<div class="tip"><strong>Cuándo cambiar.</strong> SQLite aguanta bien un servidor de tamaño normal. Si guardas el mundo en un disco de red, o si el archivo empieza a ir lento con muchos objetos, ese es el momento.</div>
+
+<h2 id="mysql-y-postgresql">MySQL y PostgreSQL</h2>
+<p>En <code>config.yml</code>:</p>
+<pre><code>database:
+  type: mysql
+  host: 127.0.0.1
+  port: 3306
+  name: itemguard
+  user: itemguard
+  password: cambia-esto</code></pre>
+<p>Los drivers vienen dentro del jar. No hay que instalar nada ni cargar un <code>Class.forName</code> a mano.</p>
+<p>El esquema se crea solo si no existe. Si la base de datos ya tiene tablas de ItemGuard de otra versión, se migran y se dice por consola qué se cambió.</p>
+
+<h2 id="una-base-de-datos-por-servidor">Una base de datos por servidor</h2>
+<p>El motor se fija en el arranque y se comprueba contra el mundo. Si la base de datos ya guarda objetos de otro mundo, el plugin se niega a arrancar:</p>
+<pre><code>Problem: this database already holds items from another world
+Try: give each server its own database, or its own world</code></pre>
+<p>El fallo que evita es uno de los más difíciles de diagnosticar: dos servidores, un mundo dividido, y objetos que aparecen en el sitio equivocado. Mejor un arranque que se niega a continuar.</p>
+<div class="warn"><strong>No compartas la base de datos entre servidores con mundos distintos.</strong> El plugin te lo va a impedir, y el mensaje está arriba. Si ves ese error, la solución es una base de datos por servidor, no borrar las tablas.</div>
+
+<h2 id="copias-de-seguridad">Copias de seguridad</h2>
+<p>Con SQLite, copia el archivo con el servidor parado. Con MySQL o PostgreSQL, usa el mecanismo de cada motor, no una copia del archivo.</p>
+<p>Los datos son pequeños. Una copia de <code>itemguard.db</code> ocupa unos pocos cientos de kilobytes con un servidor con cientos de objetos, así que la copia es barata y la pérdida no lo es.</p>
+      </article>
+      <aside class="toc" id="toc" aria-label="En esta página">
+        <p class="toc-label">En esta página</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Reporta un problema</h2>
+      <p class="support-lead">¿Algo no funciona, o se comporta de una forma que no esperabas?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Abrir un issue
+          </h3>
+          <p>Issues públicos de GitHub en el sitio de documentación. Busca antes: puede que ya esté conocido.</p>
+          <span class="card-more">Busca primero en los issues →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Escríbenos
+          </h3>
+          <p>Llega a los dos. Más lento, pero funciona sin cuenta.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Anterior / Siguiente"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Buscar">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Buscar en la documentación…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> moverse</span>
+      <span><kbd>Enter</kbd> abrir</span>
+      <span><kbd>Esc</kbd> cerrar</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentación del plugin para Paper 1.21.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<p class="lead">De un jar en <code>plugins/</code> a un objeto protegido en menos de un minuto.</p>
+<p class="meta">Tiempo estimado: 3 minutos &#183; Paper 1.21+ &#183; Java 21</p>
+
+<h2>1. Requisitos</h2>
+<ul>
+  <li><strong>Paper 1.21 o superior</strong> (o un fork con la misma API).</li>
+  <li><strong>Java 21</strong>.</li>
+  <li>Ningún otro plugin. Los drivers de SQLite, MySQL y PostgreSQL vienen dentro del jar.</li>
+</ul>
+<div class="note"><strong>Integraciones opcionales.</strong> LuckPerms se usa si resulta estar instalado y nunca es necesario. El único puente opcional es SmartSpawner; sin él, ItemGuard funciona exactamente igual.</div>
+
+<h2>2. Coloca el jar</h2>
+<pre><code>plugins/
+  ItemGuard.jar   # déjalo aquí (o en plugins/ItemGuard/)</code></pre>
+<p>Arranca el servidor. En la primera ejecución el plugin crea <code>plugins/ItemGuard/</code> con:</p>
+<ul>
+  <li><code>config.yml</code> — la configuración, completamente comentada.</li>
+  <li><code>translations/</code> — un archivo de mensajes editable por idioma, nueve en total.</li>
+  <li><code>itemguard.db</code> — el registro SQLite. Nada sale de la máquina.</li>
+</ul>
+
+<h2>3. Lee el informe de arranque</h2>
+<p>Cada arranque imprime un bloque que lo dice todo &#8212; lo primero que hay que mirar cuando algo no funciona:</p>
+<pre><code>ItemGuard v1.0.0 — by SrIruma &amp; SrPinkyy
+State: ACTIVE | 7 tracked item(s)
+Server: Paper 1.21.1 (build 133)
+Java: 21.0.12.1
+Database: SQLite (plugins/ItemGuard/itemguard.db)
+Language: en
+Loaded: 7 items, 2 template(s)
+Integrations: none | SmartSpawner
+Sealed ground: on, swept every 30s, 3 reclaim attempt(s)
+Access: per-node (17 nodes)</code></pre>
+<p>Cuando no puede arrancar, nombra el problema y la solución, en lugar de detenerse en una línea genérica:</p>
+<pre><code>ItemGuard v1.0.0 — by SrIruma &amp; SrPinkyy
+State: FAILED | the plugin was disabled
+Server: Paper 1.21.1 (build 133)
+Engine: MySQL
+Problem: cannot open the database on MySQL 8: Access denied for user 'root'
+Try: check the database block of config.yml</code></pre>
+<div class="tip"><strong>El motor se nombra a propósito.</strong> Una contraseña mal, un esquema que falta y un host inalcanzable no tienen nada en común como solución. La línea de base de datos nombra el motor realmente en uso, con cualquier <code>password=</code> oculto.</div>
+
+<h2>4. Protege tu primer objeto</h2>
+<p>Sujeta una espada de diamante y ejecuta &#8212; con el operador, o con <code>itemguard.add</code> concedido:</p>
+<pre><code>/ig create Sword</code></pre>
+<p>Esto guarda el objeto como plantilla <code>Sword</code>. Entrega una copia protegida a un jugador:</p>
+<pre><code>/ig give Steve Sword amount 64</code></pre>
+<p>Esa copia ya tiene un id único y no puede soltarse ni recogerse por nadie salvo Steve. ¿Dónde está?</p>
+<pre><code>/ig find TI-1a2b3c</code></pre>
+<p>Suéltalo en el suelo y séllalo en su sitio &#8212; bedrock debajo, una etiqueta encima:</p>
+<pre><code>/ig seal TI-1a2b3c
+/ig reclaim                     # su dueño lo recupera</code></pre>
+
+<div class="warn"><strong>¿Nadie puede ejecutar comandos todavía?</strong> Todos los permisos vienen en <code>false</code>, así que en un servidor real los operadores no tienen nada hasta que se conceda. Mira <a href="permissions.html">Permisos</a>. En un servidor de pruebas donde todo el mundo entra como operador, pon <code>console.ops-are-admins: true</code> y el estado de operador pasa a ser toda la política.</div>
+
+<h2>5. ¿Y ahora?</h2>
+<ul>
+  <li><a href="commands.html">La referencia completa de <code>/ig</code></a></li>
+  <li><a href="configuration.html">Todas las opciones de <code>config.yml</code></a></li>
+  <li><a href="seals.html">Sellos, bedrock y el presupuesto de reclamo</a></li>
+  <li><a href="permissions.html">Los dieciocho nodos y <code>itemguard.admin</code></a></li>
+</ul>
+
+<h2>Probarlo antes de comprarlo</h2>
+<p>BuiltByBit tiene un <strong>servidor de prueba</strong> con el plugin ya instalado, para que puedas probarlo en el juego antes de decidir. Se entra desde la propia ficha del plugin.</p>

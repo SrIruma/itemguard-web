@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sriruma.github.io/itemguard-web/sitemap.xml

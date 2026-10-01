@@ -1,0 +1,65 @@
+<p class="lead">Todo lo que se puede cambiar está en <code>config.yml</code>, comentado y con el valor por defecto a la vista. La mayoría de los servidores no necesita tocarlo.</p>
+<p class="meta">Generado en el primer arranque &#183; comentado línea por línea</p>
+
+<h2>Dónde está</h2>
+<p>En <code>plugins/ItemGuard/config.yml</code>, creado en el primer arranque. No se sobrescribe al actualizar: si una versión nueva añade opciones, se añaden con su valor por defecto y las tuyas se quedan.</p>
+<div class="note"><strong>Recargar sin reiniciar.</strong> <code>/ig reload</code> vuelve a leer configuración, mensajes, plantillas y datos. No hace falta reiniciar el servidor para cambiar una opción.</div>
+
+<h2>El bloque de base de datos</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>type</code></td><td><code>sqlite</code>, <code>mysql</code> o <code>postgresql</code></td><td><code>sqlite</code></td></tr>
+      <tr><td><code>host</code></td><td>Servidor de base de datos</td><td><code>localhost</code></td></tr>
+      <tr><td><code>port</code></td><td>Puerto de conexión</td><td>el del motor</td></tr>
+      <tr><td><code>name</code></td><td>Nombre de la base de datos</td><td><code>itemguard</code></td></tr>
+      <tr><td><code>user</code></td><td>Usuario de conexión</td><td><code>root</code></td></tr>
+      <tr><td><code>password</code></td><td>Contraseña de conexión</td><td>vacío</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Con SQLite no hay nada que configurar: el archivo se crea solo en <code>plugins/ItemGuard/itemguard.db</code> y nada sale de la máquina.</p>
+<p>El motor se comprueba en el arranque. Si no puede abrirla, el plugin no arranca y dice por qué:</p>
+<pre><code>ItemGuard v1.0.0 — by SrIruma &amp; SrPinkyy
+State: FAILED | the plugin was disabled
+Server: Paper 1.21.1 (build 133)
+Engine: MySQL
+Problem: cannot open the database on MySQL 8: Access denied for user 'root'
+Try: check the database block of config.yml</code></pre>
+<div class="tip"><strong>Una contraseña mal, un esquema que falta y un host inalcanzable.</strong> No tienen nada en común como solución, así que el mensaje los distingue en lugar de decir "error de base de datos". Cualquier <code>password=</code> aparece oculto en el informe.</div>
+
+<h2>Una base de datos por servidor</h2>
+<p>El motor se fija en el arranque y se comprueba contra el mundo. Si dos servidores apuntan al mismo archivo y a mundos distintos, el plugin se niega a arrancar en lugar de mezclar datos de dos mundos:</p>
+<pre><code>Problem: this database already holds items from another world
+Try: give each server its own database, or its own world</code></pre>
+<p>Es una comprobación que se nota sólo cuando importa, y que evita un fallo muy difícil de diagnosticar después.</p>
+
+<h2>Los sellos</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>seals.sweep</code></td><td>Comprueba los sellos periódicamente</td><td><code>true</code></td></tr>
+      <tr><td><code>seals.sweep-interval</code></td><td>Cada cuántos segundos</td><td><code>30</code></td></tr>
+      <tr><td><code>seals.reclaim-attempts</code></td><td>Reclamos por ventana y jugador</td><td><code>3</code></td></tr>
+      <tr><td><code>seals.reclaim-window</code></td><td>Duración de la ventana, en segundos</td><td><code>30</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>El <a href="seals.html">apartado de sellos</a> explica el presupuesto y el barrido con más detalle.</p>
+
+<h2>Consola y operadores</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>console.ops-are-admins</code></td><td>Ser operador equivale a <code>itemguard.admin</code></td><td><code>false</code></td></tr>
+      <tr><td><code>console.log-file</code></td><td>Escribe un registro en archivo</td><td><code>false</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="warn"><strong>ops-are-admins es para pruebas.</strong> Con <code>true</code>, cualquiera que entre como operador puede rastrear, mover y recuperar cualquier objeto del servidor. Está pensado para un servidor de pruebas donde todo el mundo entra como operador; en producción, concede los permisos a quien los necesita y déjalo en <code>false</code>.</div>
+
+<h2>Traducciones</h2>
+<p>El idioma se toma de <code>language</code> en el primer arranque, y a partir de ahí de los archivos de <code>translations/</code>. Cada idioma es un archivo aparte, con los marcadores documentados. La <a href="translations.html">página de traducciones</a> los explica uno a uno.</p>

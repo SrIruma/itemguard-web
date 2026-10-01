@@ -1,0 +1,88 @@
+<p class="lead">Las preguntas que más salen, respondidas. Si la tuya no está, el buscador de arriba la encuentra por palabra clave.</p>
+
+<h2>Instalación</h2>
+
+<h3>¿Necesito LuckPerms?</h3>
+<p>No. LuckPerms se usa si lo tienes instalado, y nunca es necesario. El único puente opcional es SmartSpawner, y sin él ItemGuard funciona exactamente igual. Los drivers de base de datos vienen dentro del jar.</p>
+
+<h3>Nadie puede ejecutar comandos</h3>
+<p>Porque todos los permisos vienen en <code>false</code>, incluidos los de los operadores. Es deliberado. Mira <a href="permissions.html">Permisos</a> para ver los dieciocho nodos y el atajo <code>itemguard.admin</code>.</p>
+<p>En un servidor de pruebas donde todo el mundo entra como operador, pon <code>console.ops-are-admins: true</code> y el estado de operador pasa a ser toda la política. En producción, deja eso en <code>false</code>.</p>
+
+<h3>¿Paper 1.21 y Java 21 exactos?</h3>
+<p>1.21 o superior, y Java 21. Cualquier fork de Paper con la misma API de plugins funciona. El plugin comprueba la versión al arrancar y dice qué espera si no coincide.</p>
+
+<h2>Objetos</h2>
+
+<h3>¿Puede perder o duplicar un objeto?</h3>
+<p>No. El plugin nunca suelta un objeto al suelo por su cuenta ni lo duplica. Un objeto cae al suelo si un jugador lo suelta y su flag <code>drop</code> lo permite; en otro caso la acción se cancela y se avisa.</p>
+
+<h3>Funciona con objetos de otros plugins</h3>
+<p>Sí, mientras el objeto pueda llevar NBT. Se rastrean objetos de cualquier plugin que lleve el id en su NBT, incluidos los de ItemEdit.</p>
+
+<h3>¿Y los objetos con enchantments?</h3>
+<p>Se guardan tal cual, con sus encantamientos y sus nombres. El id va en un campo propio del NBT y no pisa nada que el objeto ya trajera.</p>
+
+<h2>Protección</h2>
+
+<h3>Una tolva se lleva mi objeto</h3>
+<p>La flag <code>hopper</code> lo impide por defecto. Si has puesto <code>hopper=true</code> en esa plantilla, ya no lo impide: cámbiala con <code>/ig flag</code> o quítala de la plantilla.</p>
+<p>La <a href="flags.html">página de flags</a> explica los siete interruptores y sus valores por defecto.</p>
+
+<h3>Alguien lo mina de su bloque</h3>
+<p>La flag <code>break</code> lo impide. El permiso <code>itemguard.break</code> es lo que permite a un administrador hacerlo de todas formas, y queda registrado.</p>
+
+<h3>Una explosión lo destruye</h3>
+<p>La flag <code>explosion</code> lo impide. Está en <code>false</code> por defecto, y es una de las razones por las que los sellos sobreviven a un TNT.</p>
+
+<h2>Sellos y reclamos</h2>
+
+<h3>¿Cómo recupera su dueño un objeto?</h3>
+<p>Con <code>/ig reclaim</code>, desde donde esté. El reclamo verifica que quien pide es el dueño, que el objeto sigue donde se selló y que el mundo es el mismo. Si algo falla, lo dice y no mueve nada. La <a href="seals.html">página de sellos</a> lo explica paso a paso.</p>
+
+<h3>Un admin puede quedarse con un objeto</h3>
+<p>No. El reclamo depende de la propiedad, no de los permisos. Un admin sin propiedad no puede reclamar el objeto de otro. Lo que sí puede es <code>/ig recover</code>, que es una operación de administración y queda registrada a su nombre.</p>
+
+<h3>Un intento fallido aparece en el historial</h3>
+<p>Sí, con el motivo. Un reclamo denegado deja rastro, que es justo lo que hace que un reclamo correcto sea creíble delante de alguien que lo discute.</p>
+
+<h2>Configuración</h2>
+
+<h3>¿Puedo cambiar las opciones sin reiniciar?</h3>
+<p>Sí. <code>/ig reload</code> vuelve a leer configuración, mensajes, plantillas y datos. El único valor que no se puede cambiar en caliente es el motor de base de datos, que se fija en el arranque; para cambiarlo hay que reiniciar.</p>
+
+<h3>Perdí mi config.yml</h3>
+<p>Se regenera al borrar el archivo y arrancar, con los valores por defecto. Tus comentarios se pierden, pero no tus objetos: están en la base de datos, que es un archivo aparte.</p>
+
+<h3>Dos servidores, un archivo</h3>
+<p>El plugin lo impide, porque dos servidores con mundos distintos sobre un mismo archivo acabarían con objetos en el sitio equivocado. El error de arranque te lo dice, y la solución es una base de datos por servidor. La <a href="database.html">página de base de datos</a> lo explica.</p>
+
+<h2>Traducciones</h2>
+
+<h3>¿Cómo cambio el idioma?</h3>
+<p>El idioma se elige en el primer arranque y luego se cambia en <code>config.yml</code>. Los mensajes están en <code>plugins/ItemGuard/translations/</code>, un archivo por idioma, editables y recargables con <code>/ig reload</code>. La <a href="translations.html">página de traducciones</a> documenta cada marcador.</p>
+
+<h3>Añadí una versión y mis textos siguen ahí</h3>
+<p>Sí. Las claves nuevas se añaden a tu archivo con su valor por defecto; las tuyas no se tocan. Los mensajes que no hayas traducido salen en inglés hasta que los completes.</p>
+
+<h2>Compra</h2>
+
+<h3>¿Es gratis y dónde lo consigo?</h3>
+<p>ItemGuard es un plugin de pago, vendido en BuiltByBit. Si prefieres verlo funcionar antes de gastar nada, BuiltByBit tiene un servidor de prueba con el plugin ya instalado; se entra desde la ficha del plugin.</p>
+
+<h3>¿Puedo probarlo antes de comprarlo?</h3>
+<p>Sí. El <a href="quickstart.html">inicio rápido</a> de arriba es la instalación entera; el servidor de prueba es para jugar con el plugin en el juego. Se entra desde la ficha en BuiltByBit.</p>
+
+<h2>Reportar un problema</h2>
+
+<h3>¿Se rompió algo? ¿Qué leo primero?</h3>
+<p>El bloque de arranque, que imprime los datos: el estado, el motor en uso con las credenciales ocultas, y un problema nombrado con su solución cuando no puede arrancar. Todo eso va también a <code>plugins/ItemGuard/logs/</code> cuando el registro en archivo está activo. Luego esta página. Luego el <a href="https://github.com/SrIruma/itemguard-web/issues">rastreador de issues</a>, o el correo del final de la página si prefieres no usar una cuenta.</p>
+
+<h3>¿Cómo reporto un problema?</h3>
+<p>De las dos formas que aparecen al final de esta página:</p>
+<ul>
+<li><strong>Un issue</strong> en <a href="https://github.com/SrIruma/itemguard-web/issues">el repositorio de la documentación</a>. Es público, cualquiera puede abrir uno, y no hace falta una cuenta más allá de GitHub. Busca primero entre los issues abiertos: muchos reportes son el mismo error de configuración, y encontrarlo ya resuelto es más rápido que esperar.</li>
+<li><strong>Un correo</strong> a MrTsumugi@proton.me, que llega a los dos. Más lento, y sin registro público, así que sirve para lo que no prefieras postear abierto.</li>
+</ul>
+<p>Como sea, lo primero que merece adjuntarse es el bloque de arranque y <code>plugins/ItemGuard/logs/</code>: la mayoría de los problemas los responde la línea que nombra el motor en uso y el problema que encontró.</p>
+<div class="note"><strong>Los reportes de abuso y de seguridad no van en público.</strong> Si el reporte es sobre alguien abusando del plugin en vez de sobre el plugin fallando, usa el correo. Un issue público es un registro permanente y buscable.</div>

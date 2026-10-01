@@ -1,0 +1,35 @@
+<p class="lead">Una plantilla nombra un grupo de objetos y lleva las flags que comparten. Todo lo que sale de ella hereda esas flags, y cada objeto puede anular cualquier flag de forma individual.</p>
+<p class="meta">Un nombre, un grupo, las flags compartidas</p>
+
+<h2>Qué es una plantilla</h2>
+<p>No es un contenedor de objetos: es una definición. Dice qué clase de cosa es y cómo se comporta, y a partir de ahí el plugin construye objetos iguales.</p>
+<p>El caso claro es el equipo caro. Una espada de diamante y una de netherita no son el mismo objeto, pero casi siempre quieres lo mismo: que no se suelten, que no las recoja un desconocido, que una tolva no se las lleve. Eso es una plantilla.</p>
+<div class="note"><strong>Una plantilla no se puede editar en caliente.</strong> Crear y borrar son operaciones de administrador. Para cambiar cómo se comporta un grupo ya repartido, se cambian los objetos: una plantilla nueva no los toca.</div>
+
+<h2>Crear una plantilla</h2>
+<p>Se crea a partir del objeto en la mano:</p>
+<pre><code>&gt; /ig create Sword
+Template "Sword" created from diamond_sword
+  drop=false pickup=false move=false hopper=false
+  break=false explosion=false recovery=true</code></pre>
+<p>El nombre es el que usarás después para entregar objetos de esa clase. Se pueden añadir flags al crearla, y sobrescribir una existente con <code>force</code>:</p>
+<pre><code>&gt; /ig create Sword force flags=drop=false,pickup=false,recovery=true</code></pre>
+<p>Los dos ejemplos dan el mismo resultado. La forma larga se usa cuando se quiere ser explícito.</p>
+
+<h2>Ver las plantillas</h2>
+<p><code>/ig list templates</code> las muestra en pantalla para un jugador, y en texto para consola.</p>
+<pre><code>&gt; /ig list templates
+Sword       diamond_sword      7 flags, 0 overrides
+Ore         raw_gold_block     7 flags, 0 overrides
+Totem       totem_of_undying   7 flags, 1 overrides</code></pre>
+<p>La columna de overrides cuenta cuántos objetos de esa plantilla se apartan de ella. Un número alto ahí suele significar que la plantilla no describe bien el grupo.</p>
+
+<h2>Borrar una plantilla</h2>
+<pre><code>&gt; /ig delete Sword
+Template "Sword" deleted
+  0 items were using it</code></pre>
+<p>Borrar una plantilla no toca los objetos que salieron de ella. Siguen rastreados, con sus propias flags, y siguen localizables por id. Lo que desaparece es la definición, no la historia de lo construido con ella.</p>
+<div class="warn"><strong>Borrarla no libera nada.</strong> Un objeto creado desde una plantilla borrada no se convierte en un objeto normal: conserva sus flags. Si lo que quieres es dejar de proteger algo, usa <code>/ig flag</code> sobre el objeto, o <code>/ig unlink</code> para dejar de rastrearlo.</div>
+
+<h2>Los flags que una plantilla lleva</h2>
+<p>Los mismos siete de siempre: <code>drop</code>, <code>pickup</code>, <code>move</code>, <code>hopper</code>, <code>break</code>, <code>explosion</code> y <code>recovery</code>. Todos en <code>false</code> salvo <code>recovery</code>. La <a href="flags.html">página de flags</a> explica cada uno y por qué.</p>

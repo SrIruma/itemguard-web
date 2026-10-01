@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Database · ItemGuard</title>
+<meta name="description" content="Database">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Database · ItemGuard">
+<meta property="og:description" content="Database">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="es" href="https://sriruma.github.io/itemguard-web/es/docs/database.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/database.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="database">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Search</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="author &amp; maintainer">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentation</p>
+        <a href="/itemguard-web/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/docs/database.html">Database</a>
+        <a href="/itemguard-web/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Database</h1>
+<p class="lead">One database per server, by design. Your shop server, your faction server and your hub keep three separate copies of the guard &mdash; and the plugin enforces it, because it is the only way the data keeps its meaning.</p>
+<p class="meta">SQLite out of the box &#183; MySQL and PostgreSQL for a bigger disk, your own backups, or a second machine</p>
+
+<h2 id="sqlite-by-default">SQLite by default</h2>
+<p>A single file at <code>plugins/ItemGuard/itemguard.db</code>, no database server, nothing leaves the machine. The right choice until you can say why not. Back it up with the same routine that backs up the world; like the world, it changes while the server runs, so back it up from a file-level snapshot rather than by copying a live file.</p>
+
+<h2 id="mysql-and-postgresql">MySQL and PostgreSQL</h2>
+    <pre><code>database:
+  type: postgresql     # sqlite | mysql | postgresql
+  host: db.example.net
+  port: 5432           # 0 uses the engine's default, 3306 or 5432
+  name: itemguard
+  user: itemguard
+  password: ""
+  params: "sslmode=require"   # TLS through a proxy, in the standard form</code></pre>
+<ul>
+<li>The JDBC drivers are inside the plugin jar &mdash; nothing else to install.</li>
+<li>The tables are created on the first start; the account only needs rights on its own schema.</li>
+<li><code>params</code> carries the usual connection strings, e.g. <code>sslmode=require</code> or <code>useSSL=true&amp;requireSSL=true</code>.</li>
+<li>The password is never logged: the start-up line prints the URL with it masked, and a <code>password=</code> parameter you add by hand is redacted too.</li>
+</ul>
+<div class="warn"><strong>A plain-text password sits in <code>config.yml</code>.</strong> Keep that file out of version control and out of screenshots.</div>
+
+<h2 id="one-server-per-database-enforced">One server per database, enforced</h2>
+<p>Each install keeps a <code>server-id</code> in its <code>config.yml</code>, generated on first start, and the database remembers the one that claimed it. A second server that points at the same database is <strong>refused on its first start</strong>, with a message naming the install that owns it.</p>
+<p>Why enforce rather than document it: these tables are full of world names and coordinates, and a world name is not a coordinate until you know whose world it is. With two servers sharing one database, <code>/ig find</code> would report a chest that is not there, <code>/ig tp</code> would walk an admin over to the wrong place without complaining, and the seal sweep would lay bedrock under coordinates that mean something else &mdash; all silently. One database per server is the only way those three commands are allowed to say what they mean.</p>
+
+<h2 id="running-several-servers-or-moving-one">Running several servers, or moving one</h2>
+<ul>
+<li><strong>Running several servers?</strong> Give each one its own schema on the same MySQL or PostgreSQL server (one <code>CREATE DATABASE</code> each) and each jar its own <code>config.yml</code>.</li>
+<li><strong>Moving a server to new hardware?</strong> Copy the whole <code>plugins/ItemGuard</code> folder &mdash; <code>server-id</code> included &mdash; and it carries on.</li>
+<li><strong>Editing the id by hand</strong> turns the install into a different server in the one way that matters, and its own database will say so on the next start-up.</li>
+</ul>
+
+<p>The engine in use is printed on start-up and shown by <code>/ig integrations</code>.</p>
+      </article>
+      <aside class="toc" id="toc" aria-label="On this page">
+        <p class="toc-label">On this page</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Report a problem</h2>
+      <p class="support-lead">Something not working, or behaving in a way you did not expect?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Open an issue
+          </h3>
+          <p>Public GitHub issues on the documentation site. Search first: it may already be known.</p>
+          <span class="card-more">Search the issues first →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Email us
+          </h3>
+          <p>Reaches both of us. Slow, but it works without an account.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Previous / Next"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Search the docs…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> navigate</span>
+      <span><kbd>Enter</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentation for the Paper 1.21 plugin.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

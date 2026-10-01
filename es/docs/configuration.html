@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configuración · ItemGuard</title>
+<meta name="description" content="Configuración">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Configuración · ItemGuard">
+<meta property="og:description" content="Configuración">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="en" href="https://sriruma.github.io/itemguard-web/docs/configuration.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/configuration.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="configuration">
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/es/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Buscar</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Idioma"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="autor y mantenedor">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentación">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentación</p>
+        <a href="/itemguard-web/es/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/es/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/es/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/es/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/es/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/es/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/es/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/es/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/es/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/es/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/es/docs/database.html">Database</a>
+        <a href="/itemguard-web/es/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Configuración</h1>
+<p class="lead">Todo lo que se puede cambiar está en <code>config.yml</code>, comentado y con el valor por defecto a la vista. La mayoría de los servidores no necesita tocarlo.</p>
+<p class="meta">Generado en el primer arranque &#183; comentado línea por línea</p>
+
+<h2 id="donde-esta">Dónde está</h2>
+<p>En <code>plugins/ItemGuard/config.yml</code>, creado en el primer arranque. No se sobrescribe al actualizar: si una versión nueva añade opciones, se añaden con su valor por defecto y las tuyas se quedan.</p>
+<div class="note"><strong>Recargar sin reiniciar.</strong> <code>/ig reload</code> vuelve a leer configuración, mensajes, plantillas y datos. No hace falta reiniciar el servidor para cambiar una opción.</div>
+
+<h2 id="el-bloque-de-base-de-datos">El bloque de base de datos</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+<tbody>
+<tr><td data-label="Opción"><code>type</code></td><td data-label="Qué hace"><code>sqlite</code>, <code>mysql</code> o <code>postgresql</code></td><td data-label="Por defecto"><code>sqlite</code></td></tr>
+<tr><td data-label="Opción"><code>host</code></td><td data-label="Qué hace">Servidor de base de datos</td><td data-label="Por defecto"><code>localhost</code></td></tr>
+<tr><td data-label="Opción"><code>port</code></td><td data-label="Qué hace">Puerto de conexión</td><td data-label="Por defecto">el del motor</td></tr>
+<tr><td data-label="Opción"><code>name</code></td><td data-label="Qué hace">Nombre de la base de datos</td><td data-label="Por defecto"><code>itemguard</code></td></tr>
+<tr><td data-label="Opción"><code>user</code></td><td data-label="Qué hace">Usuario de conexión</td><td data-label="Por defecto"><code>root</code></td></tr>
+<tr><td data-label="Opción"><code>password</code></td><td data-label="Qué hace">Contraseña de conexión</td><td data-label="Por defecto">vacío</td></tr>
+</tbody>
+</table>
+</div>
+<p>Con SQLite no hay nada que configurar: el archivo se crea solo en <code>plugins/ItemGuard/itemguard.db</code> y nada sale de la máquina.</p>
+<p>El motor se comprueba en el arranque. Si no puede abrirla, el plugin no arranca y dice por qué:</p>
+<pre><code>ItemGuard v1.0.0 — by SrIruma &amp; SrPinkyy
+State: FAILED | the plugin was disabled
+Server: Paper 1.21.1 (build 133)
+Engine: MySQL
+Problem: cannot open the database on MySQL 8: Access denied for user 'root'
+Try: check the database block of config.yml</code></pre>
+<div class="tip"><strong>Una contraseña mal, un esquema que falta y un host inalcanzable.</strong> No tienen nada en común como solución, así que el mensaje los distingue en lugar de decir "error de base de datos". Cualquier <code>password=</code> aparece oculto en el informe.</div>
+
+<h2 id="una-base-de-datos-por-servidor">Una base de datos por servidor</h2>
+<p>El motor se fija en el arranque y se comprueba contra el mundo. Si dos servidores apuntan al mismo archivo y a mundos distintos, el plugin se niega a arrancar en lugar de mezclar datos de dos mundos:</p>
+<pre><code>Problem: this database already holds items from another world
+Try: give each server its own database, or its own world</code></pre>
+<p>Es una comprobación que se nota sólo cuando importa, y que evita un fallo muy difícil de diagnosticar después.</p>
+
+<h2 id="los-sellos">Los sellos</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+<tbody>
+<tr><td data-label="Opción"><code>seals.sweep</code></td><td data-label="Qué hace">Comprueba los sellos periódicamente</td><td data-label="Por defecto"><code>true</code></td></tr>
+<tr><td data-label="Opción"><code>seals.sweep-interval</code></td><td data-label="Qué hace">Cada cuántos segundos</td><td data-label="Por defecto"><code>30</code></td></tr>
+<tr><td data-label="Opción"><code>seals.reclaim-attempts</code></td><td data-label="Qué hace">Reclamos por ventana y jugador</td><td data-label="Por defecto"><code>3</code></td></tr>
+<tr><td data-label="Opción"><code>seals.reclaim-window</code></td><td data-label="Qué hace">Duración de la ventana, en segundos</td><td data-label="Por defecto"><code>30</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>El <a href="seals.html">apartado de sellos</a> explica el presupuesto y el barrido con más detalle.</p>
+
+<h2 id="consola-y-operadores">Consola y operadores</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Opción</th><th>Qué hace</th><th>Por defecto</th></tr></thead>
+<tbody>
+<tr><td data-label="Opción"><code>console.ops-are-admins</code></td><td data-label="Qué hace">Ser operador equivale a <code>itemguard.admin</code></td><td data-label="Por defecto"><code>false</code></td></tr>
+<tr><td data-label="Opción"><code>console.log-file</code></td><td data-label="Qué hace">Escribe un registro en archivo</td><td data-label="Por defecto"><code>false</code></td></tr>
+</tbody>
+</table>
+</div>
+<div class="warn"><strong>ops-are-admins es para pruebas.</strong> Con <code>true</code>, cualquiera que entre como operador puede rastrear, mover y recuperar cualquier objeto del servidor. Está pensado para un servidor de pruebas donde todo el mundo entra como operador; en producción, concede los permisos a quien los necesita y déjalo en <code>false</code>.</div>
+
+<h2 id="traducciones">Traducciones</h2>
+<p>El idioma se toma de <code>language</code> en el primer arranque, y a partir de ahí de los archivos de <code>translations/</code>. Cada idioma es un archivo aparte, con los marcadores documentados. La <a href="translations.html">página de traducciones</a> los explica uno a uno.</p>
+      </article>
+      <aside class="toc" id="toc" aria-label="En esta página">
+        <p class="toc-label">En esta página</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Reporta un problema</h2>
+      <p class="support-lead">¿Algo no funciona, o se comporta de una forma que no esperabas?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Abrir un issue
+          </h3>
+          <p>Issues públicos de GitHub en el sitio de documentación. Busca antes: puede que ya esté conocido.</p>
+          <span class="card-more">Busca primero en los issues →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Escríbenos
+          </h3>
+          <p>Llega a los dos. Más lento, pero funciona sin cuenta.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Anterior / Siguiente"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Buscar">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Buscar en la documentación…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> moverse</span>
+      <span><kbd>Enter</kbd> abrir</span>
+      <span><kbd>Esc</kbd> cerrar</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentación del plugin para Paper 1.21.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

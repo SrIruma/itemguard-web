@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propiedad y traspaso · ItemGuard</title>
+<meta name="description" content="Propiedad y traspaso">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Propiedad y traspaso · ItemGuard">
+<meta property="og:description" content="Propiedad y traspaso">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="en" href="https://sriruma.github.io/itemguard-web/docs/ownership.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/ownership.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="ownership">
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/es/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Buscar</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Idioma"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="autor y mantenedor">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentación">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentación</p>
+        <a href="/itemguard-web/es/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/es/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/es/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/es/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/es/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/es/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/es/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/es/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/es/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/es/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/es/docs/database.html">Database</a>
+        <a href="/itemguard-web/es/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Propiedad y traspaso</h1>
+<p class="lead">Un objeto rastreado tiene un dueño. Se puede cambiar, transferir y consultar, y el plugin lo registra todo para que un reclamo sea demostrable.</p>
+<p class="meta">18 objetos, un dueño cada uno</p>
+
+<h2 id="que-es-la-propiedad">Qué es la propiedad</h2>
+<p>La propiedad es la relación entre un objeto rastreado y un jugador. No es un permiso: es un hecho que queda registrado. Un servidor puede estar lleno de operadores y aun así ningún operador es dueño de nada, porque los permisos por defecto son <code>false</code>.</p>
+<p>La propiedad es lo que hace que <a href="seals.html">reclamar</a> funcione. Un objeto sellado en el suelo se lo lleva su dueño, y no un admin por mucho que pueda.</p>
+<div class="note"><strong>La propiedad no caduca.</strong> Un objeto que nadie reclama sigue perteneciendo a su dueño. No hay temporizadores ni caducidad: es suya mientras exista el objeto.</div>
+
+<h2 id="ver-el-dueno">Ver el dueño</h2>
+<pre><code>&gt; /ig info TI-1a2b3c
+Item:   TI-1a2b3c  (diamond_sword)
+Owner:  SrIruma
+State:  SEALED
+Where:  1284 64 -3027  (sealed in the ground)
+Since:  2026-09-28 19:03:11
+</code></pre>
+<p>Para un jugador, <code>/ig info hand</code> abre la misma ficha en pantalla.</p>
+
+<h2 id="cambiar-el-dueno">Cambiar el dueño</h2>
+<p>Se cambia con un comando, y el cambio queda en el historial del objeto:</p>
+<pre><code>&gt; /ig owner Steve hand
+Transferred TI-1a2b3c from SrIruma to Steve
+  recorded: 2026-09-28 19:07:44</code></pre>
+<p>Con <code>raw</code> se imprime solo el resultado, sin la línea de registro, para usar en scripts.</p>
+<p>Un objeto que no tiene dueño, porque se creó con un bypass de administrador, se puede asignar a alguien con el mismo comando.</p>
+
+<h2 id="transferir-a-otro-jugador">Transferir a otro jugador</h2>
+<p>Enviar el objeto es una cosa; cambiar su dueño, otra. Son comandos separados a propósito:</p>
+<pre><code>/ig transfer Steve hand    # el objeto llega a Steve
+/ig owner Steve hand       # ahora Steve es su dueño</code></pre>
+<div class="tip"><strong>Por qué no se juntan.</strong> Transferir sin traspasar la propiedad es un regalo: el receptor tiene el objeto y tú conservas el derecho a reclamarlo. Es una decisión legítima, pero no debería ser la que ocurre por defecto cuando escribes un solo comando.</div>
+
+<h2 id="que-pasa-cuando-un-dueno-se-va">Qué pasa cuando un dueño se va</h2>
+<p>El objeto no se desvincula. Sigue siendo suyo, y si vuelve un día puede reclamarlo. La propiedad no depende de que el jugador esté conectado ni de que la cuenta siga existiendo.</p>
+<p>Un objeto cuyo dueño se fue sí se puede recuperar con <code>/ig recover</code>, que es una operación de administración y queda registrada a nombre de quien la ejecuta. Es la excepción, no el norma.</p>
+
+<h2 id="el-historial">El historial</h2>
+<p>Cada cambio de dueño, cada sello y cada recuperación se guarda con fecha. <code>/ig info id history</code> la muestra completa.</p>
+<pre><code>&gt; /ig info TI-1a2b3c history
+TI-1a2b3c  history
+  2026-09-20 11:02  created from template Sword
+  2026-09-20 11:03  given to SrPinkyy
+  2026-09-21 09:44  owner: SrPinkyy -> SrIruma
+  2026-09-28 19:03  sealed in the ground
+  2026-09-29 20:15  reclaim attempt denied (wrong player)</code></pre>
+<p>El último intento fallido también se registra. Un reclamo denegado deja rastro, que es justo lo que hace que un reclamo correcto sea creíble.</p>
+      </article>
+      <aside class="toc" id="toc" aria-label="En esta página">
+        <p class="toc-label">En esta página</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Reporta un problema</h2>
+      <p class="support-lead">¿Algo no funciona, o se comporta de una forma que no esperabas?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Abrir un issue
+          </h3>
+          <p>Issues públicos de GitHub en el sitio de documentación. Busca antes: puede que ya esté conocido.</p>
+          <span class="card-more">Busca primero en los issues →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Escríbenos
+          </h3>
+          <p>Llega a los dos. Más lento, pero funciona sin cuenta.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Anterior / Siguiente"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Buscar">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Buscar en la documentación…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> moverse</span>
+      <span><kbd>Enter</kbd> abrir</span>
+      <span><kbd>Esc</kbd> cerrar</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentación del plugin para Paper 1.21.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

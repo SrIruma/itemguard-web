@@ -1,0 +1,49 @@
+<p class="lead">Todo se hace con <code>/ig</code> (alias <code>/itemguard</code>). Un jugador ve el resultado en una pantalla; la consola recibe texto. Ejecuta <code>/ig help</code> dentro del juego para ver la misma lista, y <code>/ig help gui</code> para verla como menú.</p>
+<p class="meta">22 subcomandos &#183; <code>info</code>, <code>list</code> y <code>flag</code> abren una pantalla al jugador</p>
+
+<h2>Referencia</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+    <tbody>
+      <tr><td><code>/ig create &lt;plantilla&gt; [force]</code></td><td>Crea o sobrescribe una plantilla a partir del objeto en la mano</td></tr>
+      <tr><td><code>/ig delete &lt;plantilla&gt;</code></td><td>Elimina una plantilla guardada</td></tr>
+      <tr><td><code>/ig unlink [id|hand]</code></td><td>Deja de rastrear un objeto; el objeto en sí no se toca</td></tr>
+      <tr><td><code>/ig give &lt;jugador&gt; &lt;plantilla&gt; [amount &lt;n&gt;] [flags k=v] [raw] [quiet]</code></td><td>Construye y entrega un objeto</td></tr>
+      <tr><td><code>/ig transfer &lt;jugador&gt; [id|hand]</code></td><td>Envía un objeto rastreado a otro jugador</td></tr>
+      <tr><td><code>/ig owner &lt;jugador&gt; [id|hand] [raw]</code></td><td>Traspasa un objeto y su propiedad</td></tr>
+      <tr><td><code>/ig flag &lt;plantilla|id|hand&gt; [flag=value ...]</code></td><td>Lee las flags en una pantalla, o las cambia</td></tr>
+      <tr><td><code>/ig recover &lt;id&gt;</code></td><td>Recupera un objeto esté donde esté, entero</td></tr>
+      <tr><td><code>/ig regenerate &lt;id&gt; [confirm]</code></td><td>Reconstruye un objeto perdido desde su copia guardada</td></tr>
+      <tr><td><code>/ig reclaim [id]</code></td><td>El dueño recupera su propio objeto sellado</td></tr>
+      <tr><td><code>/ig seal &lt;id|hand&gt;</code></td><td>Sella un objeto que está en el suelo</td></tr>
+      <tr><td><code>/ig unseal &lt;id&gt;</code></td><td>Quita un sello sin mover el objeto</td></tr>
+      <tr><td><code>/ig find &lt;id&gt;</code></td><td>Informa de dónde está un objeto</td></tr>
+      <tr><td><code>/ig tp &lt;id&gt; [confirm]</code></td><td>Teletransporta al objeto: el bloque colocado, la copia en el suelo, un tenedor conectado, o un contenedor que ve. Si nada de eso es visible, nombra el motivo y espera <code>confirm</code></td></tr>
+      <tr><td><code>/ig info &lt;id|hand&gt; [history]</code></td><td>La ficha en pantalla; <code>history</code> abre la lista de eventos</td></tr>
+      <tr><td><code>/ig list &lt;plantillas|objetos&gt;</code></td><td>El catálogo o los objetos rastreados, en pantalla</td></tr>
+      <tr><td><code>/ig version</code></td><td>Versiones de ItemGuard, del servidor y de Java</td></tr>
+      <tr><td><code>/ig permissions</code></td><td>Cada nodo de ItemGuard que tienes, con un sí o un no</td></tr>
+      <tr><td><code>/ig integrations</code></td><td>El motor de base de datos y las integraciones opcionales</td></tr>
+      <tr><td><code>/ig reload</code></td><td>Recarga configuración, mensajes, plantillas y datos</td></tr>
+      <tr><td><code>/ig help [gui]</code></td><td>La lista completa, como texto o como menú de solo lectura</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>La forma de los comandos</h2>
+<p>Todos pasan por el mismo despachador. La diferencia entrejugador y consola no está en el comando sino en quién lo ejecuta:</p>
+<ul>
+  <li>Un <strong>jugador</strong> ve pantallas: el resultado, la lista, las flags. Es la interfaz normal.</li>
+  <li>La <strong>consola</strong> ve texto, una línea por resultado. Pensado para scripts y para servidores gestionados.</li>
+</ul>
+<p>Ambos obtienen lo mismo del mismo sitio. No hay dos implementaciones que puedan discrepar.</p>
+<div class="tip"><strong>El resultado importa más que el comando.</strong> Un <code>/ig give</code> que no puede completarse dice por qué y qué haría falta, en lugar de confirmar un entrega que no ocurrió.</div>
+
+<h2>Un ejemplo de verdad</h2>
+<p>Un jugador con permiso <code>itemguard.add</code>, un objeto en la mano y una plantilla sin definir:</p>
+<pre><code>&gt; /ig create Sword
+Template "Sword" created from diamond_sword
+  drop=false pickup=false move=false hopper=false
+  break=false explosion=false recovery=true</code></pre>
+<p>La plantilla guarda las flags con sus valores por defecto. Cada objeto que salga de ella las hereda, y puede anular cualquiera de forma individual.</p>

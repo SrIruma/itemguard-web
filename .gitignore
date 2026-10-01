@@ -1,0 +1,8 @@
+# nada que ignorar: el sitio son ficheros estaticos que se suben tal cual.
+# Este archivo existe para dejar constancia de que node_modules y dist/
+# no deben aparecer aqui: este repo no usa npm.
+node_modules/
+dist/
+
+# copia de trabajo de la migracion, no se publica
+.orig/

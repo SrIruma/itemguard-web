@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pantallas en el juego · ItemGuard</title>
+<meta name="description" content="Pantallas en el juego">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Pantallas en el juego · ItemGuard">
+<meta property="og:description" content="Pantallas en el juego">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="en" href="https://sriruma.github.io/itemguard-web/docs/screens.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/screens.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="screens">
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/es/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Buscar</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Idioma"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="autor y mantenedor">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentación">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentación</p>
+        <a href="/itemguard-web/es/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/es/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/es/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/es/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/es/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/es/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/es/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/es/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/es/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/es/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/es/docs/database.html">Database</a>
+        <a href="/itemguard-web/es/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Pantallas en el juego</h1>
+<p class="lead">Cada objeto rastreado tiene su ficha en pantalla: estado, dueño, dónde se vio por última vez, sus flags y su historial, con las acciones que puedes hacer a un clic.</p>
+<p class="meta">4 pantallas &#183; jugador y consola</p>
+
+<h2 id="la-ficha-de-un-objeto">La ficha de un objeto</h2>
+<p>Es la pantalla principal. <code>/ig info id</code> la abre para un jugador:</p>
+<div class="panel">
+<p><strong>TI-1a2b3c</strong> &nbsp; diamond_sword &nbsp; <em>SEALED</em></p>
+<p>Owner: SrIruma &nbsp;&middot;&nbsp; Since: 28 sep 2026<br>
+Where: 1284 64 -3027 &nbsp;(sealed in the ground)<br>
+Flags: drop off &middot; pickup off &middot; move off &middot; hopper off &middot; break off &middot; explosion off &middot; <strong>recovery on</strong></p>
+</div>
+<p>Debajo hay botones para lo que ese objeto concreto permite hacer. Un objeto sellado muestra reclamo; uno en el suelo, moverlo; uno cuyo dueño no eres, nada.</p>
+<div class="note"><strong>Los botones son el permiso hecho visible.</strong> No hay un botón que aparezca y falle al pulsarlo. Si una acción no está, es porque el objeto no la admite o porque no tienes permiso.</div>
+
+<h2 id="el-catalogo">El catálogo</h2>
+<p><code>/ig list templates</code> y <code>/ig list items</code> abren el catálogo. Es una rejilla, pensada para recorrerla con el ratón en vez de para leerla entera:</p>
+<div class="panel">
+<p><strong>Templates (2)</strong><br>
+Sword &nbsp;&middot;&nbsp; 7 items &nbsp;&middot;&nbsp; 0 overrides<br>
+Ore &nbsp;&middot;&nbsp; 4 items &nbsp;&middot;&nbsp; 1 override</p>
+</div>
+<p>Al pulsar un objeto se abre su ficha. Al pulsar una plantilla, sus flags, que es lo que se edita desde ahí.</p>
+
+<h2 id="el-historial">El historial</h2>
+<p>Un botón en la ficha, o <code>/ig info id history</code>, y se abre la línea de tiempo del objeto:</p>
+<div class="panel">
+<p><strong>TI-1a2b3c</strong> &nbsp; 7 events<br>
+20 sep 11:02 &nbsp; created from template Sword<br>
+20 sep 11:03 &nbsp; given to SrPinkyy<br>
+21 sep 09:44 &nbsp; owner: SrPinkyy &rarr; SrIruma<br>
+28 sep 19:03 &nbsp; sealed in the ground<br>
+29 sep 20:15 &nbsp; reclaim attempt denied (wrong player)</p>
+</div>
+<p>Los intentos fallidos están. Un reclamo denegado deja rastro, que es lo que hace que un reclamo correcto sea creíble delante de alguien que discute.</p>
+
+<h2 id="las-flags">Las flags</h2>
+<p>Un botón en la ficha abre las siete flags con casillas. Cambiar una se aplica al instante y el resultado dice qué cambió y qué no:</p>
+<pre><code>Set hopper=true on TI-1a2b3c
+  hopper: false -> true
+  (6 flags unchanged)</code></pre>
+<p>Es la misma vista de <a href="flags.html">la página de flags</a>, en pantalla. La <a href="permissions.html">página de permisos</a> explica qué se necesita para llegar hasta aquí.</p>
+
+<h2 id="para-la-consola">Para la consola</h2>
+<p>La consola no tiene pantallas, y no es una carencia: es lo que permite que un script lea el resultado. Cada comando que en el juego abre una pantalla, en consola imprime el mismo dato en texto.</p>
+<pre><code>&gt; /ig info TI-1a2b3c
+Item:   TI-1a2b3c  (diamond_sword)
+Owner:  SrIruma
+State:  SEALED
+Where:  1284 64 -3027  (sealed in the ground)
+Since:  2026-09-28 19:03:11</code></pre>
+<div class="tip"><strong>Sin <code>raw</code> hay texto para humanos; con <code>raw</code>, una línea parseable.</strong> Los comandos que se usan en scripts aceptan <code>raw</code> para dar una sola línea, sin la cabecera ni las líneas de registro.</div>
+      </article>
+      <aside class="toc" id="toc" aria-label="En esta página">
+        <p class="toc-label">En esta página</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Reporta un problema</h2>
+      <p class="support-lead">¿Algo no funciona, o se comporta de una forma que no esperabas?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Abrir un issue
+          </h3>
+          <p>Issues públicos de GitHub en el sitio de documentación. Busca antes: puede que ya esté conocido.</p>
+          <span class="card-more">Busca primero en los issues →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Escríbenos
+          </h3>
+          <p>Llega a los dos. Más lento, pero funciona sin cuenta.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Anterior / Siguiente"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Buscar">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Buscar en la documentación…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> moverse</span>
+      <span><kbd>Enter</kbd> abrir</span>
+      <span><kbd>Esc</kbd> cerrar</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentación del plugin para Paper 1.21.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

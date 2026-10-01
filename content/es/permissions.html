@@ -1,0 +1,61 @@
+<p class="lead">Todos los permisos vienen en <code>false</code>, así que ni siquiera los operadores los tienen hasta que se concedan &#8212; con una única excepción deliberada.</p>
+<p class="meta">18 nodos &#183; <code>itemguard.admin</code> los agrupa</p>
+
+<h2>Los nodos</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Permiso</th><th>Permite</th><th>Por defecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>itemguard.add</code></td><td><code>/ig create</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.remove</code></td><td><code>/ig delete</code> y <code>/ig unlink</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.give</code></td><td><code>/ig give</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.send</code></td><td><code>/ig transfer</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.owner</code></td><td><code>/ig owner</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.flag</code></td><td><code>/ig flag</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.recover</code></td><td><code>/ig recover</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.regenerate</code></td><td><code>/ig regenerate</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.reclaim</code></td><td><code>/ig reclaim</code></td><td><code>true</code></td></tr>
+      <tr><td><code>itemguard.seal</code></td><td><code>/ig seal</code> y <code>/ig unseal</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.find</code></td><td><code>/ig find</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.tp</code></td><td><code>/ig tp</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.info</code></td><td><code>/ig info</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.list</code></td><td><code>/ig list</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.break</code></td><td>Romper un bloque rastreado de otro</td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.version</code></td><td><code>/ig version</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.reload</code></td><td><code>/ig reload</code></td><td><code>false</code></td></tr>
+      <tr><td><code>itemguard.admin</code></td><td>Todo lo anterior</td><td><code>false</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note"><strong>La única excepción.</strong> <code>itemguard.reclaim</code> viene en <code>true</code> para que ser dueño de un objeto baste para recuperarlo. Revócalo en un grupo y sus jugadores se remitirán a un admin en su lugar.</div>
+
+<h2>Dos atajos</h2>
+<p><code>itemguard.admin</code> llega de dos maneras, y ItemGuard resuelve las dos por su cuenta, así que funcionan incluso sin un plugin de permisos:</p>
+<ul>
+  <li>En <strong>LuckPerms</strong>: <code>/lp group default permission info itemguard.admin</code>.</li>
+  <li>En <strong>el ops-are-admins de la consola</strong>: con <code>console.ops-are-admins: true</code>, ser operador equivale a <code>itemguard.admin</code>.</li>
+</ul>
+<p>El segundo es el camino corto para un servidor de pruebas donde todo el mundo entra como operador. En producción conviene lo contrario: permisos concretos, y solo a quien los necesita.</p>
+
+<h2>Comprobar lo que tienes</h2>
+<p>Sin adivinar:</p>
+<pre><code>&gt; /ig permissions
+You hold:
+  itemguard.reclaim    yes   (default)
+  itemguard.add        no
+  itemguard.give       no
+  itemguard.admin      no
+Not held: 16 nodes</code></pre>
+<p>El resultado separa lo concedido de lo por defecto, que es la confusion más habitual: un permiso puede estar activo sin que nadie lo haya concedido, y esa línea lo deja claro.</p>
+
+<h2>Dar un permiso con LuckPerms</h2>
+<pre><code>/lp user SrPinkyy permission set itemguard.add true
+/lp user SrPinkyy permission set itemguard.give true
+/lp group default permission set itemguard.find true</code></pre>
+<p>El grupo por defecto con <code>itemguard.find</code> es razonable: poder preguntar dónde está un objeto no da derecho a moverlo.</p>
+<div class="tip"><strong>Orden de concesión.</strong> Da primero el permiso concreto, y <code>itemguard.admin</code> después si hace falta. Con los eighteen concedidos a medias, es fácil creer que algo no funciona cuando en realidad falta un nodo.</div>
+
+<h2>Sin plugin de permisos</h2>
+<p>Si no usas LuckPerms ni nada parecido, el plugin acepta los permisos por el mecanismo de Paper, que es el mismo que usan los comandos vanilla. En la práctica, con un <code>permissions.yml</code> o con los permisos por defecto de Bukkit, los operadores tienen lo que sus permisos digan y nadie más.</p>
+<p>ItemGuard no exige ningún plugin de permisos. LuckPerms es una comodidad, no un requisito, y SmartSpawner es un puente opcional que puedes no tener nunca.</p>

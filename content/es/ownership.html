@@ -1,0 +1,46 @@
+<p class="lead">Un objeto rastreado tiene un dueño. Se puede cambiar, transferir y consultar, y el plugin lo registra todo para que un reclamo sea demostrable.</p>
+<p class="meta">18 objetos, un dueño cada uno</p>
+
+<h2>Qué es la propiedad</h2>
+<p>La propiedad es la relación entre un objeto rastreado y un jugador. No es un permiso: es un hecho que queda registrado. Un servidor puede estar lleno de operadores y aun así ningún operador es dueño de nada, porque los permisos por defecto son <code>false</code>.</p>
+<p>La propiedad es lo que hace que <a href="seals.html">reclamar</a> funcione. Un objeto sellado en el suelo se lo lleva su dueño, y no un admin por mucho que pueda.</p>
+<div class="note"><strong>La propiedad no caduca.</strong> Un objeto que nadie reclama sigue perteneciendo a su dueño. No hay temporizadores ni caducidad: es suya mientras exista el objeto.</div>
+
+<h2>Ver el dueño</h2>
+<pre><code>&gt; /ig info TI-1a2b3c
+Item:   TI-1a2b3c  (diamond_sword)
+Owner:  SrIruma
+State:  SEALED
+Where:  1284 64 -3027  (sealed in the ground)
+Since:  2026-09-28 19:03:11
+</code></pre>
+<p>Para un jugador, <code>/ig info hand</code> abre la misma ficha en pantalla.</p>
+
+<h2>Cambiar el dueño</h2>
+<p>Se cambia con un comando, y el cambio queda en el historial del objeto:</p>
+<pre><code>&gt; /ig owner Steve hand
+Transferred TI-1a2b3c from SrIruma to Steve
+  recorded: 2026-09-28 19:07:44</code></pre>
+<p>Con <code>raw</code> se imprime solo el resultado, sin la línea de registro, para usar en scripts.</p>
+<p>Un objeto que no tiene dueño, porque se creó con un bypass de administrador, se puede asignar a alguien con el mismo comando.</p>
+
+<h2>Transferir a otro jugador</h2>
+<p>Enviar el objeto es una cosa; cambiar su dueño, otra. Son comandos separados a propósito:</p>
+<pre><code>/ig transfer Steve hand    # el objeto llega a Steve
+/ig owner Steve hand       # ahora Steve es su dueño</code></pre>
+<div class="tip"><strong>Por qué no se juntan.</strong> Transferir sin traspasar la propiedad es un regalo: el receptor tiene el objeto y tú conservas el derecho a reclamarlo. Es una decisión legítima, pero no debería ser la que ocurre por defecto cuando escribes un solo comando.</div>
+
+<h2>Qué pasa cuando un dueño se va</h2>
+<p>El objeto no se desvincula. Sigue siendo suyo, y si vuelve un día puede reclamarlo. La propiedad no depende de que el jugador esté conectado ni de que la cuenta siga existiendo.</p>
+<p>Un objeto cuyo dueño se fue sí se puede recuperar con <code>/ig recover</code>, que es una operación de administración y queda registrada a nombre de quien la ejecuta. Es la excepción, no el norma.</p>
+
+<h2>El historial</h2>
+<p>Cada cambio de dueño, cada sello y cada recuperación se guarda con fecha. <code>/ig info id history</code> la muestra completa.</p>
+<pre><code>&gt; /ig info TI-1a2b3c history
+TI-1a2b3c  history
+  2026-09-20 11:02  created from template Sword
+  2026-09-20 11:03  given to SrPinkyy
+  2026-09-21 09:44  owner: SrPinkyy -> SrIruma
+  2026-09-28 19:03  sealed in the ground
+  2026-09-29 20:15  reclaim attempt denied (wrong player)</code></pre>
+<p>El último intento fallido también se registra. Un reclamo denegado deja rastro, que es justo lo que hace que un reclamo correcto sea creíble.</p>

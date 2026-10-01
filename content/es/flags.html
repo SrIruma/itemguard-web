@@ -1,0 +1,48 @@
+<p class="lead">Siete interruptores que deciden qué se le permite hacer a un objeto rastreado. Cada uno tiene un valor por defecto prudente, y todos se pueden cambiar por objeto.</p>
+<p class="meta">7 flags &#183; por objeto o por plantilla</p>
+
+<h2>Las siete flags</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Flag</th><th>Qué controla</th><th>Por defecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>drop</code></td><td>Si el objeto puede soltarse al suelo</td><td><code>false</code></td></tr>
+      <tr><td><code>pickup</code></td><td>Si otro jugador puede recogerlo</td><td><code>false</code></td></tr>
+      <tr><td><code>move</code></td><td>Si puede arrastrarse de un sitio a otro</td><td><code>false</code></td></tr>
+      <tr><td><code>hopper</code></td><td>Si una tolva puede extraerlo de un contenedor</td><td><code>false</code></td></tr>
+      <tr><td><code>break</code></td><td>Si el bloque colocado puede romperse</td><td><code>false</code></td></tr>
+      <tr><td><code>explosion</code></td><td>Si una explosión puede destruirlo</td><td><code>false</code></td></tr>
+      <tr><td><code>recovery</code></td><td>Si se puede recuperar tras una pérdida</td><td><code>true</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note"><strong>Por qué todas en false.</strong> Un objeto que un jugador puede soltar, que otro puede recoger y que una tolva puede llevarse no está protegido en ningún sentido que importe. La única que viene en true es <code>recovery</code>, porque poder recuperar lo tuyo es el comportamiento por defecto razonable, no una concesión.</div>
+
+<h2>Dónde vive una flag</h2>
+<p>En dos sitios, y el objeto gana al grupo:</p>
+<ul>
+  <li>En la <strong>plantilla</strong>, para todo lo que salga de ella.</li>
+  <li>En el <strong>objeto</strong>, para ese caso concreto. Un objeto puede anular cualquier flag de su plantilla sin tocar los demás.</li>
+</ul>
+<p>Al crear un objeto desde una plantilla, se copian los valores. Después, cambiar la plantilla no cambia los objetos ya existentes: lo que se edita es el punto de partida para los siguientes.</p>
+<div class="tip"><strong>Por qué no es una herencia viva.</strong> Si cambiar una plantilla alterara objetos ya repartidos por el mundo, un cambio de configuración podría weaken la protección de algo que alguien ya considera suyo. Copiar en la creación hace que la política de un objeto sea fija y predecible.</div>
+
+<h2>Leer y cambiar flags</h2>
+<p>En el juego, <code>/ig flag</code> abre una pantalla con las flags del objeto y casillas para cambiarlas. Desde consola imprime la misma información en texto.</p>
+<pre><code>&gt; /ig flag hand
+Template: Sword
+  drop=false pickup=false move=false hopper=false
+  break=false explosion=false recovery=true
+Overrides on this item: none</code></pre>
+<p>Para cambiar, se pasan pares <code>flag=valor</code>:</p>
+<pre><code>&gt; /ig flag hand hopper=true
+Set hopper=true on TI-1a2b3c
+  hopper: false -> true
+  (6 flags unchanged)</code></pre>
+<p>El resultado dice qué cambió y qué no. Un cambio que no hace nada se dice, en lugar de confirmar en silencio.</p>
+
+<h2>Flags en plantillas</h2>
+<p>Una plantilla lleva las flags que comparte todo lo que sale de ella. Se define al crearla:</p>
+<pre><code>&gt; /ig create Sword flags=drop=false,recovery=true</code></pre>
+<div class="warn"><strong>Un objeto puede contradecir a su plantilla.</strong> Es intencional: es lo que permite un objeto que sí puede soltarse dentro de un inventario privado, sin renunciar a la protección del resto. Si necesitas que la plantilla sea ley, revisa los objetos existentes con <code>/ig list items</code> y sus overrides.</div>

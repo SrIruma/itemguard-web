@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permissions · ItemGuard</title>
+<meta name="description" content="Permissions">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Permissions · ItemGuard">
+<meta property="og:description" content="Permissions">
+<meta property="og:type" content="article">
+<link rel="alternate" hreflang="es" href="https://sriruma.github.io/itemguard-web/es/docs/permissions.html">
+<link rel="alternate" hreflang="x-default" href="https://sriruma.github.io/itemguard-web/docs/permissions.html">
+<link rel="icon" href="/itemguard-web/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/itemguard-web/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/itemguard-web/assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/itemguard-web/assets/css/style.css">
+<script>
+/* Se aplica el tema antes del primer pintado, para que no haya destello. */
+(function () {
+  try {
+    var t = localStorage.getItem('ig-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+<script src="/itemguard-web/assets/js/site.js"></script>
+</head>
+<body data-page="permissions">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="menu-toggle" class="icon-btn" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="brand" href="/itemguard-web/">
+      <img class="brand-mark" src="/itemguard-web/assets/img/logo.png" alt="" width="28" height="28">
+      <span class="brand-text">ItemGuard</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="search-trigger" data-search-open aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span>Search</span>
+        <kbd>/</kbd>
+      </button>
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
+      <a class="author-link" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="author &amp; maintainer">
+        <svg class="gh" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        <span class="name">SrIruma</span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 019.8 3.5 8.5 8.5 0 1020.5 14.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation">
+    <div id="sidebar-nav">
+      <noscript>
+        <p class="sidebar-label">Documentation</p>
+        <a href="/itemguard-web/docs/quickstart.html">Quick start</a>
+        <a href="/itemguard-web/docs/commands.html">Commands</a>
+        <a href="/itemguard-web/docs/flags.html">Flags</a>
+        <a href="/itemguard-web/docs/templates.html">Templates</a>
+        <a href="/itemguard-web/docs/ownership.html">Ownership &amp; transfer</a>
+        <a href="/itemguard-web/docs/seals.html">Seals &amp; reclaim</a>
+        <a href="/itemguard-web/docs/permissions.html">Permissions</a>
+        <a href="/itemguard-web/docs/configuration.html">Configuration</a>
+        <a href="/itemguard-web/docs/translations.html">Translations</a>
+        <a href="/itemguard-web/docs/screens.html">In-game screens</a>
+        <a href="/itemguard-web/docs/database.html">Database</a>
+        <a href="/itemguard-web/docs/faq.html">FAQ</a>
+      </noscript>
+    </div>
+  </nav>
+
+  <main class="content" id="main">
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
+    <div class="content-inner">
+      <article class="doc-body">
+<h1>Permissions</h1>
+<p class="lead">Every permission defaults to <code>false</code>, so not even operators hold them until they are granted &mdash; with one deliberate exception.</p>
+<p class="meta">18 nodes &#183; <code>itemguard.admin</code> bundles them all</p>
+
+<h2 id="the-nodes">The nodes</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Permission</th><th>Allows</th><th>Default</th></tr></thead>
+<tbody>
+<tr><td data-label="Permission"><code>itemguard.add</code></td><td data-label="Allows"><code>/ig create</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.remove</code></td><td data-label="Allows"><code>/ig delete</code> and <code>/ig unlink</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.give</code></td><td data-label="Allows"><code>/ig give</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.send</code></td><td data-label="Allows"><code>/ig transfer</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.owner</code></td><td data-label="Allows"><code>/ig owner</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.flag</code></td><td data-label="Allows"><code>/ig flag</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.recover</code></td><td data-label="Allows"><code>/ig recover</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.regenerate</code></td><td data-label="Allows"><code>/ig regenerate</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.reclaim</code></td><td data-label="Allows"><code>/ig reclaim</code></td><td data-label="Default"><code>true</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.seal</code></td><td data-label="Allows"><code>/ig seal</code> and <code>/ig unseal</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.find</code></td><td data-label="Allows"><code>/ig find</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.tp</code></td><td data-label="Allows"><code>/ig tp</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.info</code></td><td data-label="Allows"><code>/ig info</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.list</code></td><td data-label="Allows"><code>/ig list</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.break</code></td><td data-label="Allows">Break a tracked block owned by someone else</td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.version</code></td><td data-label="Allows"><code>/ig version</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.reload</code></td><td data-label="Allows"><code>/ig reload</code></td><td data-label="Default"><code>false</code></td></tr>
+<tr><td data-label="Permission"><code>itemguard.admin</code></td><td data-label="Allows">All of the above</td><td data-label="Default"><code>false</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note"><strong>The one exception</strong> <code>itemguard.reclaim</code> defaults to <code>true</code> so that owning an item is enough to get it back. Revoke it on a group and its players are sent to an admin instead.</div>
+
+<h2 id="two-shorthands">Two shorthands</h2>
+<p><code>itemguard.admin</code> arrives two ways, and ItemGuard resolves both itself, so they work even without a permission plugin:</p>
+<ul>
+<li><strong><code>itemguard.admin</code></strong> &mdash; every node at once, also declared in <code>plugin.yml</code> as a <code>children:</code> list for LuckPerms, Vault and friends.</li>
+<li><strong><code>itemguard.*</code></strong> &mdash; the wildcard prefix, for whatever wildcard support the permission plugin has.</li>
+</ul>
+
+<h3 id="with-luckperms">With LuckPerms</h3>
+    <pre><code>/lp group default permission set itemguard.admin true</code></pre>
+<p>Granting the seventeen nodes one by one is never necessary. LuckPerms is not a dependency and is not shaded: ItemGuard only ever calls <code>sender.hasPermission(...)</code>, which every permission plugin implements.</p>
+
+<h2 id="when-everybody-who-joins-is-an-operator">When everybody who joins is an operator</h2>
+<p>On a test server, a preview, or anything behind a launcher that gives every player operator, the policy above is a problem: everybody is an operator and no operator holds any of the seventeen nodes, so the owner can install the plugin and still not run a single command.</p>
+    <pre><code>console:
+  ops-are-admins: true</code></pre>
+<p>Operator status becomes the whole policy. It defaults to <code>false</code> and it does not touch the permissions: a non-operator is refused exactly as before. Two choices worth knowing:</p>
+<ul>
+<li><strong>Read once, at start-up.</strong> <code>/ig reload</code> does not change it, so <code>/ig permissions</code> can never contradict itself.</li>
+<li><strong>A refusal tells an operator about it.</strong> Denied operators are shown the switch; everyone else just sees the missing node, because for them the node is the answer.</li>
+</ul>
+
+<h2 id="finding-out-what-you-actually-hold">Finding out what you actually hold</h2>
+    <pre><code>/ig permissions</code></pre>
+<p>Prints every node with a yes or a no, plus the name of the message file in use. It needs no permission of its own, because the people who need it are exactly the ones who cannot run anything else. When a subcommand is refused, the message names both the node and the subcommand:</p>
+    <pre><code>You do not have itemguard.add, which /ig create needs.</code></pre>
+      </article>
+      <aside class="toc" id="toc" aria-label="On this page">
+        <p class="toc-label">On this page</p>
+        <nav id="toc-nav"></nav>
+      </aside>
+    </div>
+    <section class="support">
+      <h2>Report a problem</h2>
+      <p class="support-lead">Something not working, or behaving in a way you did not expect?</p>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SrIruma/itemguard-web/issues">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            Open an issue
+          </h3>
+          <p>Public GitHub issues on the documentation site. Search first: it may already be known.</p>
+          <span class="card-more">Search the issues first →</span>
+        </a>
+        <a class="support-card" href="mailto:MrTsumugi@proton.me">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+            Email us
+          </h3>
+          <p>Reaches both of us. Slow, but it works without an account.</p>
+          <span class="card-more">MrTsumugi@proton.me →</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="pager" id="pager" aria-label="Previous / Next"></nav>
+  </main>
+</div>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Search the docs…" autocomplete="off" spellcheck="false">
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-hint" id="search-hint"></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot">
+      <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> navigate</span>
+      <span><kbd>Enter</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>ItemGuard · by <a href="https://github.com/SrIruma" target="_blank" rel="noopener">SrIruma</a> &amp; SrPinkyy</p>
+    <p class="footer-note">Documentation for the Paper 1.21 plugin.</p>
+  </div>
+</footer>
+
+<script src="/itemguard-web/assets/js/app.js"></script>
+</body>
+</html>

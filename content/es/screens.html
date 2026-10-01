@@ -1,0 +1,51 @@
+<p class="lead">Cada objeto rastreado tiene su ficha en pantalla: estado, dueño, dónde se vio por última vez, sus flags y su historial, con las acciones que puedes hacer a un clic.</p>
+<p class="meta">4 pantallas &#183; jugador y consola</p>
+
+<h2>La ficha de un objeto</h2>
+<p>Es la pantalla principal. <code>/ig info id</code> la abre para un jugador:</p>
+<div class="panel">
+  <p><strong>TI-1a2b3c</strong> &nbsp; diamond_sword &nbsp; <em>SEALED</em></p>
+  <p>Owner: SrIruma &nbsp;&middot;&nbsp; Since: 28 sep 2026<br>
+  Where: 1284 64 -3027 &nbsp;(sealed in the ground)<br>
+  Flags: drop off &middot; pickup off &middot; move off &middot; hopper off &middot; break off &middot; explosion off &middot; <strong>recovery on</strong></p>
+</div>
+<p>Debajo hay botones para lo que ese objeto concreto permite hacer. Un objeto sellado muestra reclamo; uno en el suelo, moverlo; uno cuyo dueño no eres, nada.</p>
+<div class="note"><strong>Los botones son el permiso hecho visible.</strong> No hay un botón que aparezca y falle al pulsarlo. Si una acción no está, es porque el objeto no la admite o porque no tienes permiso.</div>
+
+<h2>El catálogo</h2>
+<p><code>/ig list templates</code> y <code>/ig list items</code> abren el catálogo. Es una rejilla, pensada para recorrerla con el ratón en vez de para leerla entera:</p>
+<div class="panel">
+  <p><strong>Templates (2)</strong><br>
+  Sword &nbsp;&middot;&nbsp; 7 items &nbsp;&middot;&nbsp; 0 overrides<br>
+  Ore &nbsp;&middot;&nbsp; 4 items &nbsp;&middot;&nbsp; 1 override</p>
+</div>
+<p>Al pulsar un objeto se abre su ficha. Al pulsar una plantilla, sus flags, que es lo que se edita desde ahí.</p>
+
+<h2>El historial</h2>
+<p>Un botón en la ficha, o <code>/ig info id history</code>, y se abre la línea de tiempo del objeto:</p>
+<div class="panel">
+  <p><strong>TI-1a2b3c</strong> &nbsp; 7 events<br>
+  20 sep 11:02 &nbsp; created from template Sword<br>
+  20 sep 11:03 &nbsp; given to SrPinkyy<br>
+  21 sep 09:44 &nbsp; owner: SrPinkyy &rarr; SrIruma<br>
+  28 sep 19:03 &nbsp; sealed in the ground<br>
+  29 sep 20:15 &nbsp; reclaim attempt denied (wrong player)</p>
+</div>
+<p>Los intentos fallidos están. Un reclamo denegado deja rastro, que es lo que hace que un reclamo correcto sea creíble delante de alguien que discute.</p>
+
+<h2>Las flags</h2>
+<p>Un botón en la ficha abre las siete flags con casillas. Cambiar una se aplica al instante y el resultado dice qué cambió y qué no:</p>
+<pre><code>Set hopper=true on TI-1a2b3c
+  hopper: false -> true
+  (6 flags unchanged)</code></pre>
+<p>Es la misma vista de <a href="flags.html">la página de flags</a>, en pantalla. La <a href="permissions.html">página de permisos</a> explica qué se necesita para llegar hasta aquí.</p>
+
+<h2>Para la consola</h2>
+<p>La consola no tiene pantallas, y no es una carencia: es lo que permite que un script lea el resultado. Cada comando que en el juego abre una pantalla, en consola imprime el mismo dato en texto.</p>
+<pre><code>&gt; /ig info TI-1a2b3c
+Item:   TI-1a2b3c  (diamond_sword)
+Owner:  SrIruma
+State:  SEALED
+Where:  1284 64 -3027  (sealed in the ground)
+Since:  2026-09-28 19:03:11</code></pre>
+<div class="tip"><strong>Sin <code>raw</code> hay texto para humanos; con <code>raw</code>, una línea parseable.</strong> Los comandos que se usan en scripts aceptan <code>raw</code> para dar una sola línea, sin la cabecera ni las líneas de registro.</div>

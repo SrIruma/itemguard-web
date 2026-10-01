@@ -1,0 +1,58 @@
+<p class="lead">Cada mensaje es editable en su propio archivo, con los marcadores documentados. Y una clave que añade una versión nueva sigue funcionando después de actualizar.</p>
+<p class="meta">9 idiomas &#183; un archivo por idioma &#183; editable en caliente</p>
+
+<h2>Dónde están</h2>
+<p>En <code>plugins/ItemGuard/translations/</code>, un archivo por idioma, generado en el primer arranque:</p>
+<pre><code>translations/
+  en.yml    messages.yml   # inglés
+  es.yml    messages.yml
+  de.yml    messages.yml
+  fr.yml    messages.yml
+  pt.yml    messages.yml
+  it.yml    messages.yml
+  nl.yml    messages.yml
+  pl.yml    messages.yml
+  ru.yml    messages.yml</code></pre>
+<p>El idioma se elige en el primer arranque y luego se puede cambiar en cualquier momento sin reiniciar.</p>
+
+<h2>Los marcadores</h2>
+<p>Cada mensaje tiene marcadores que se rellenan al mostrarse. Se documentan en el propio archivo:</p>
+<pre><code># messages.yml
+reclaim:
+  success: "Reclaimed {item} — owner {owner} verified"
+  wrong-player: "That item belongs to {owner}, not to you."
+  too-many: "Reclaim limit reached. Try again in {seconds}s."
+  not-sealed: "{item} is not sealed."</code></pre>
+<table>
+  <thead><tr><th>Marcador</th><th>Qué pone</th></tr></thead>
+  <tbody>
+    <tr><td><code>{item}</code></td><td>El id del objeto, por ejemplo <code>TI-1a2b3c</code></td></tr>
+    <tr><td><code>{owner}</code></td><td>El nombre del dueño</td></tr>
+    <tr><td><code>{player}</code></td><td>Quien ejecuta el comando</td></tr>
+    <tr><td><code>{amount}</code></td><td>La cantidad, cuando el mensaje habla de una entrega</td></tr>
+    <tr><td><code>{seconds}</code></td><td>Un número de segundos, para las esperas</td></tr>
+  </tbody>
+</table>
+<div class="note"><strong>Un marcador mal escrito no rompe nada.</strong> Si un archivo tiene <code>{itemm}</code> en lugar de <code>{item}</code>, el mensaje sale con el marcador tal cual en vez de desaparecer. Es visible, que es preferible a un hueco silencioso.</div>
+
+<h2>Editar y recargar</h2>
+<p>Los mensajes se releen sin reiniciar:</p>
+<pre><code>&gt; /ig reload
+Reloaded: config, 9 translation(s), 2 template(s), 7 item(s)</code></pre>
+<p>Un archivo con YAML inválido no se aplica y el anterior se queda. El error dice el archivo y la línea, porque un mensaje que no aparece por un error de sangría es difícil de encontrar si no te lo dicen.</p>
+<div class="tip"><strong>Prueba antes de dar por bueno.</strong> Tras editar, ejecuta el comando afectado una vez. Es más rápido que leer el archivo buscando un error de sangría, y el resultado te dice si el marcador se rellenó.</div>
+
+<h2>Añadir un idioma</h2>
+<p>Copiar un archivo existente con el nombre de tu idioma es todo lo que hace falta. El plugin lo carga en el siguiente arranque:</p>
+<pre><code>cp translations/en.yml translations/ca.yml</code></pre>
+<p>La traducción inicial se puede dejar en inglés: el resultado es un idioma mixto, que es mejor que nada y no rompe nada. Luego se va traduciendo por claves.</p>
+
+<h2>Claves nuevas al actualizar</h2>
+<p>Una versión nueva puede añadir claves que no estaban en tu archivo. Al arrancar:</p>
+<pre><code>ItemGuard v1.0.1 — by SrIruma &amp; SrPinkyy
+State: ACTIVE | 7 tracked item(s)
+Loaded: 7 items, 2 template(s)
+Translations: 9 loaded, 3 new key(s) added to en.yml
+  seal.dust-trail   (added with default)
+  seal.break-denied (added with default)</code></pre>
+<div class="warn"><strong>Las claves se añaden, no se sobrescriben.</strong> Tus textos están a salvo. Las claves nuevas entran con su valor por defecto en inglés, así que Translated un archivo al español antes de traducirlo, y los mensajes nuevos saldrán en inglés hasta que los completes.</div>

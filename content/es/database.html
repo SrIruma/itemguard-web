@@ -1,0 +1,49 @@
+<p class="lead">SQLite de serie, sin configurar nada. MySQL o PostgreSQL cuando un archivo se queda corto. Y la comprobación que impide que dos servidores actúen sobre el mundo equivocado.</p>
+<p class="meta">Un archivo, o un servidor &#183; comprobado en el arranque</p>
+
+<h2>Qué guarda</h2>
+<p>Una fila por objeto rastreado, y nada más:</p>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Campo</th><th>Qué es</th></tr></thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>El identificador, el mismo que va en el NBT del objeto</td></tr>
+      <tr><td><code>owner</code></td><td>El UUID del dueño</td></tr>
+      <tr><td><code>state</code></td><td>Dónde está: colocado, en el suelo, en una mano, en un contenedor</td></tr>
+      <tr><td><code>location</code></td><td>Coordenadas, mundo y, si está en un contenedor, su id</td></tr>
+      <tr><td><code>template</code></td><td>La plantilla de la que salió, si salió de alguna</td></tr>
+      <tr><td><code>flags</code></td><td>Las siete, tal como están en ese objeto</td></tr>
+      <tr><td><code>history</code></td><td>Los eventos, con fecha</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>La copia del objeto en sí, con su NBT completo, está en el mundo, no en la base de datos. Eso es lo que permite <a href="commands.html">regenerar</a> un objeto perdido: la base de datos sabe qué era, y el mundo tenía la pieza.</p>
+
+<h2>SQLite</h2>
+<p>Es el valor por defecto y no hay nada que configurar. El archivo se crea en el primer arranque:</p>
+<pre><code>plugins/ItemGuard/itemguard.db</code></pre>
+<p>Nada sale de la máquina. Para la mayoría de servidores un plugin de esto, el archivo es suficiente y es la opción que menos cosas puede salir mal.</p>
+<div class="tip"><strong>Cuándo cambiar.</strong> SQLite aguanta bien un servidor de tamaño normal. Si guardas el mundo en un disco de red, o si el archivo empieza a ir lento con muchos objetos, ese es el momento.</div>
+
+<h2>MySQL y PostgreSQL</h2>
+<p>En <code>config.yml</code>:</p>
+<pre><code>database:
+  type: mysql
+  host: 127.0.0.1
+  port: 3306
+  name: itemguard
+  user: itemguard
+  password: cambia-esto</code></pre>
+<p>Los drivers vienen dentro del jar. No hay que instalar nada ni cargar un <code>Class.forName</code> a mano.</p>
+<p>El esquema se crea solo si no existe. Si la base de datos ya tiene tablas de ItemGuard de otra versión, se migran y se dice por consola qué se cambió.</p>
+
+<h2>Una base de datos por servidor</h2>
+<p>El motor se fija en el arranque y se comprueba contra el mundo. Si la base de datos ya guarda objetos de otro mundo, el plugin se niega a arrancar:</p>
+<pre><code>Problem: this database already holds items from another world
+Try: give each server its own database, or its own world</code></pre>
+<p>El fallo que evita es uno de los más difíciles de diagnosticar: dos servidores, un mundo dividido, y objetos que aparecen en el sitio equivocado. Mejor un arranque que se niega a continuar.</p>
+<div class="warn"><strong>No compartas la base de datos entre servidores con mundos distintos.</strong> El plugin te lo va a impedir, y el mensaje está arriba. Si ves ese error, la solución es una base de datos por servidor, no borrar las tablas.</div>
+
+<h2>Copias de seguridad</h2>
+<p>Con SQLite, copia el archivo con el servidor parado. Con MySQL o PostgreSQL, usa el mecanismo de cada motor, no una copia del archivo.</p>
+<p>Los datos son pequeños. Una copia de <code>itemguard.db</code> ocupa unos pocos cientos de kilobytes con un servidor con cientos de objetos, así que la copia es barata y la pérdida no lo es.</p>

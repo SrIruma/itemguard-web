@@ -1,0 +1,61 @@
+<p class="lead">Un objeto que cae al suelo se sella en su sitio: bedrock debajo, una etiqueta encima. Solo su dueño puede sacarlo de ahí, y cada intento queda registrado.</p>
+<p class="meta">Bedrock debajo, etiqueta encima, dueño dentro</p>
+
+<h2>Qué hace un sello</h2>
+<p>Sellar fija un objeto en un punto del mundo. Deja de ser un objeto suelto y pasa a ser algo anclado:</p>
+<ul>
+  <li>No se puede recoger, ni arrastrar, ni mover.</li>
+  <li>No lo absorbe una tolva, ni lo rompe un pico, ni lo destruye una explosión.</li>
+  <li>Su dueño puede reclamarlo con <code>/ig reclaim</code>.</li>
+</ul>
+<p>La etiqueta flotante sobre el objeto muestra su id, para que un dueño pueda encontrarlo sin recordar el código de memoria.</p>
+<div class="note"><strong>Un sello es por posición, no por contenedor.</strong> El objeto queda en el mundo, no en un baúl. Eso significa que un sello sobrevive a que alguien rompa el baúl donde se guardaba.</div>
+
+<h2>Sellar un objeto</h2>
+<pre><code>&gt; /ig seal TI-1a2b3c
+Sealed TI-1a2b3c at 1284 64 -3027
+  bedrock placed underneath
+  label: "TI-1a2b3c — SrIruma"</code></pre>
+<p>También funciona sobre el objeto en la mano, para sellar algo que llevas encima:</p>
+<pre><code>&gt; /ig seal hand</code></pre>
+<p>Sellar algo que ya está sellado no hace nada y lo dice, en lugar de apilar bedrock encima.</p>
+
+<h2>Reclamar un objeto sellado</h2>
+<p>El dueño lo recoge con un comando. No se recoge andando, sino con intención explícita:</p>
+<pre><code>&gt; /ig reclaim
+Reclaimed TI-1a2b3c
+  owner: SrIruma (verified)
+  location: 1284 64 -3027
+  returned to hand</code></pre>
+<p>El reclamo verifica tres cosas antes de devolver el objeto: que quien lo pide es el dueño, que el objeto sigue donde se selló, y que el mundo sigue siendo el mismo. Si alguna falla, lo dice y no mueve nada.</p>
+<div class="tip"><strong>El reclamo es una prueba, no un permiso.</strong> No depende de los permisos del jugador: depende de que sea el dueño. Un admin sin propiedad no puede reclamar el objeto de otro, y por eso no puede "quedárselo".</div>
+
+<h2>El presupuesto de reclamos</h2>
+<p>Reclamar genera bedrock y mueve un objeto, así que está limitado por servidor. En <code>config.yml</code>:</p>
+<pre><code>seals:
+  reclaim-attempts: 3
+  reclaim-window: 30s
+  sweep-interval: 30s</code></pre>
+<p>El comportamiento es:</p>
+<ul>
+  <li>Un jugador tiene <code>reclaim-attempts</code> oportunidades cada <code>reclaim-window</code>.</li>
+  <li>Cada reclamo<b>fallido</b> consume una. Un reclamo correcto también, porque mover un objeto cuenta igual.</li>
+  <li>Al agotarse, el plugin responde con un mensaje que dice cuánto queda y cuándo se recupera.</li>
+</ul>
+<div class="warn"><strong>Un abuso aquí es un problema real.</strong> El límite existe para que el reclamo no se convierta en una forma de mover bedrock por el mundo. Si en tu servidor los jugadores reclaman con frecuencia, sube el presupuesto en vez de desactivar la comprobación.</div>
+
+<h2>El barrido</h2>
+<p>Los objetos sellados se comprueban cada <code>sweep-interval</code> segundos. El barrido:</p>
+<ul>
+  <li>Recoloca la etiqueta y el bedrock si alguien los movió.</li>
+  <li>Quita sellos cuyo objeto ya no existe, para no dejar Basura.</li>
+  <li>Avisa por consola si un sello quedó inválido, con el motivo.</li>
+</ul>
+<p>El barrido se puede desactivar con <code>seals.sweep: false</code> si interfiere con algo. En un servidor con mucho Treaty del Nether puede noticing; conviene mirar los avisos de consola la primera vez.</p>
+
+<h2>Quitar un sello</h2>
+<p>Un admin puede quitar el sello sin mover el objeto, dejándolo en el sitio como un objeto normal protegido por sus flags:</p>
+<pre><code>&gt; /ig unseal TI-1a2b3c
+Seal removed from TI-1a2b3c
+  object left in place at 1284 64 -3027</code></pre>
+<p>Esto no libera el objeto: sigue siendo rastreado y sigue siendo del mismo dueño. Lo único que se quita es el anclaje.</p>
