@@ -1,0 +1,129 @@
+name: Addon Submission
+description: Submit a community addon (bridge) to be listed in the official catalog.
+title: "[Addon] "
+labels: ["addon submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for building on the ItemGuard API. Fill this in and we'll review your bridge.
+
+        Before you submit, read [COMMUNITY.md](https://github.com/SrIruma/itemguard-web/blob/main/COMMUNITY.md). It covers the requirements and the review process.
+
+  - type: input
+    id: addon_name
+    attributes:
+      label: Addon name
+      description: The value returned by your `displayName()`, or the name of the bridge.
+      placeholder: SmartSpawner Bridge
+    validations:
+      required: true
+
+  - type: input
+    id: addon_id
+    attributes:
+      label: Addon id
+      description: The stable, lowercase id returned by your `name()`.
+      placeholder: smartspawner
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Who wrote the bridge. Your name or handle.
+      placeholder: SrIruma
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One or two sentences on what the bridge does and which plugin it bridges.
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source code
+      description: Link to a public repository (GitHub, GitLab, etc.).
+      placeholder: https://github.com/you/your-bridge
+    validations:
+      required: true
+
+  - type: input
+    id: jar
+    attributes:
+      label: Download link — JAR
+      description: A direct link to the compiled addon JAR.
+      placeholder: https://github.com/you/your-bridge/releases/download/v1.0.0/YourBridge.jar
+    validations:
+      required: true
+
+  - type: input
+    id: sources
+    attributes:
+      label: Download link — source ZIP
+      description: A direct link to the source ZIP for the release.
+      placeholder: https://github.com/you/your-bridge/archive/refs/tags/v1.0.0.zip
+    validations:
+      required: true
+
+  - type: input
+    id: required_plugins
+    attributes:
+      label: Required plugins
+      description: What must be installed for the bridge to work, as returned by `requiredPlugins()`. Leave empty if none.
+      placeholder: SmartSpawner
+
+  - type: input
+    id: tested
+    attributes:
+      label: Tested versions
+      description: The server software and versions you tested on.
+      placeholder: Paper 1.21.1, Folia 1.21.1
+    validations:
+      required: true
+
+  - type: input
+    id: api_version
+    attributes:
+      label: ItemGuard API version
+      description: The `itemguard-api` version you built against.
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Confirm each item before submitting.
+      options:
+        - label: Implements `ItemGuardIntegration`
+          required: true
+        - label: Registered under `META-INF/services/dev.mugi.itemguard.addon.ItemGuardIntegration`
+          required: true
+        - label: Uses `itemguard-addon-api` as a `provided` dependency (not bundled)
+          required: true
+        - label: Has a unique, stable `name()` (lowercase, hyphens)
+          required: true
+        - label: Source code is publicly available
+          required: true
+        - label: Tested on Paper 1.21+ (and Folia if possible)
+          required: true
+        - label: No malicious code, backdoors or data collection
+          required: true
+        - label: I have read and followed COMMUNITY.md
+          required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Extra context for the reviewers, screenshots, known limitations.
+    validations:
+      required: false

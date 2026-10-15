@@ -1,0 +1,96 @@
+name: Bug Report
+description: Something is broken or behaving wrongly.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The more detail you give, the faster this gets fixed. For questions, use [Discussions](https://github.com/SrIruma/itemguard-web/discussions) instead.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you post
+      options:
+        - label: I'm running the latest ItemGuard release
+          required: true
+        - label: I searched existing issues and this isn't a duplicate
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: ItemGuard version
+      description: Run `/ig version` and paste the output.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: server
+    attributes:
+      label: Server software and version
+      placeholder: Paper 1.21.1
+    validations:
+      required: true
+
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      placeholder: "21"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened
+      description: What went wrong. Be specific about the item, command or event involved.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Number them. The smaller the reproduction, the better.
+      placeholder: |
+        1. Give a tracked item with /ig give ...
+        2. Drop it ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or stack trace
+      description: Paste anything relevant from the console. This is rendered as code, no backticks needed.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: addons
+    attributes:
+      label: Addons installed
+      description: List any ItemGuard addons in `plugins/ItemGuard/addons/`.
+      placeholder: SmartSpawnerBridge 1.0.0
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant config
+      description: Paste the parts of `config.yml` that matter, if any.
+      render: yaml
+    validations:
+      required: false

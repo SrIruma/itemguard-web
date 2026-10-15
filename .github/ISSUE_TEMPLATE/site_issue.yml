@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        This tracker is for the documentation site only. For problems with the plugin, the API or an addon, use the [main repository](https://github.com/SrIruma/ItemGuard/issues/new/choose).
+        This is for problems with the documentation site itself. For bugs or features in the plugin, the API or an addon, use the Bug Report or Feature Request templates instead.
 
   - type: input
     id: page
