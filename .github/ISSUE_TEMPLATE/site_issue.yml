@@ -1,0 +1,34 @@
+name: Site issue
+description: A problem with the documentation site itself — wrong text, broken link, layout bug.
+title: "[Site] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This tracker is for the documentation site only. For problems with the plugin, the API or an addon, use the [main repository](https://github.com/SrIruma/ItemGuard/issues/new/choose).
+
+  - type: input
+    id: page
+    attributes:
+      label: Page or section
+      description: The section of the site where you saw the problem, or its `#` link.
+      placeholder: "#placeholders"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong
+      description: What you expected versus what you got. A link or screenshot helps.
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Firefox 130, Chrome 129, mobile Safari
+    validations:
+      required: false
