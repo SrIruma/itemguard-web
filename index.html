@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ItemGuard — Overview</title>
+    <meta name="description" content="ItemGuard — track, find and protect the valuable items on your server. Docs, addon API and community addons.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+        <div class="brand">
+            <a href="#overview" class="brand-link">ItemGuard</a>
+            <span class="brand-sub">Documentation</span>
+        </div>
+
+        <div class="search-wrap">
+            <input type="search" id="search" class="search" placeholder="Search docs…  ( / )"
+                   autocomplete="off" spellcheck="false" aria-label="Search documentation">
+        </div>
+
+        <div class="topbar-actions">
+            <a class="btn-buy" href="https://builtbybit.com/resources/itemguard.128433/" target="_blank" rel="noopener">
+                <span class="buy-full">Buy on BuiltByBit</span><span class="buy-short">Buy</span>
+            </a>
+            <a class="btn-icon" href="https://github.com/SrIruma" target="_blank" rel="noopener" title="SrIruma on GitHub" aria-label="SrIruma on GitHub">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <nav class="nav" id="nav"></nav>
+            <div class="nav-empty" id="nav-empty" hidden>No matches.</div>
+        </aside>
+
+        <main class="content" id="content">
+            <!-- ========================= DOCUMENTATION ========================= -->
+            <section class="page" id="page-overview" data-group="Documentation"
+                     data-title="Overview" data-keywords="intro features item id ledger sqlite folia paper">
+                <div class="crumbs">Documentation</div>
+                <h1>ItemGuard</h1>
+                <p class="lead">Track, find and protect the valuable items you hand out. A staff tool for Paper 1.21+.</p>
+
+                <div class="meta">
+                    <span class="pill">Paper 1.21+</span>
+                    <span class="pill">Java 21</span>
+                    <span class="pill">SQLite</span>
+                    <span class="pill">Folia ready</span>
+                </div>
+
+                <p>ItemGuard is for servers that give players items worth real money — crate rewards, ranks, custom gear. Once an item is tracked, it gets a unique ID, a record of everywhere it's been, and a set of flags that decide what can happen to it. If something goes wrong, you can trace it, find it and get it back.</p>
+
+                <p>It's a staff tool, so nothing is switched on by default. Operators don't automatically get access — you choose who can touch tracked items and what they can do with them.</p>
+
+                <h2>What you get</h2>
+                <ul>
+                    <li><strong>Unique IDs</strong> — every item gets an ID like <code>IG-7-a4f2</code> that never changes.</li>
+                    <li><strong>A full history</strong> — a running log of every move: drops, pickups, container transfers, deaths.</li>
+                    <li><strong>33 flags</strong> — decide exactly what an item can do. Be dropped? Hopper-transferred? Crafted? Burned?</li>
+                    <li><strong>Locked ownership</strong> — the owner is set when the item is issued and doesn't change afterwards.</li>
+                    <li><strong>Recovery</strong> — find a missing item, teleport to it, seize it, or rebuild it from its stored copy.</li>
+                    <li><strong>SQLite only</strong> — one local file. No database server to run or connect to.</li>
+                    <li><strong>Addons</strong> — hook ItemGuard into other plugins through the API. SmartSpawner ships as a bridge.</li>
+                </ul>
+
+                <div class="pager">
+                    <span></span>
+                    <a class="pager-next" data-goto="installation">Installation &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-installation" data-group="Documentation"
+                     data-title="Installation" data-keywords="requirements java paper setup plugins folder config lang">
+                <div class="crumbs">Documentation</div>
+                <h1>Installation</h1>
+
+                <h2>What you need</h2>
+                <table class="table">
+                    <tbody>
+                        <tr><th>Server</th><td>Paper 1.21 or newer (Folia works too)</td></tr>
+                        <tr><th>Java</th><td>21+</td></tr>
+                        <tr><th>Database</th><td>SQLite — bundled, nothing to install</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Setup</h2>
+                <ol>
+                    <li>Drop <code>ItemGuard.jar</code> into your <code>plugins/</code> folder.</li>
+                    <li>Got addons? Put their JARs in <code>plugins/ItemGuard/addons/</code>.</li>
+                    <li>Start the server. ItemGuard creates <code>plugins/ItemGuard/</code> with the config, the language files and <code>itemguard.db</code>.</li>
+                    <li>Give your staff the permissions they need — see <a data-goto="permissions">Permissions</a>.</li>
+                </ol>
+
+                <div class="callout">
+                    <strong>Where things go.</strong> The plugin JAR sits in <code>plugins/</code>. Addons go in <code>plugins/ItemGuard/addons/</code>. The config, translations and database all live in <code>plugins/ItemGuard/</code>.
+                </div>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="overview">&larr; Overview</a>
+                    <a class="pager-next" data-goto="commands">Commands &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-commands" data-group="Documentation"
+                     data-title="Commands" data-keywords="give blueprint item find tp recover seize unseize addons reload version ig">
+                <div class="crumbs">Documentation</div>
+                <h1>Commands</h1>
+                <p>Everything runs under <code>/ig</code> (or its alias <code>/itemguard</code>).</p>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Command</th><th>What it does</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>/ig give &lt;player&gt; &lt;blueprint&gt;</code></td><td>Give a player a tracked item.</td></tr>
+                        <tr><td><code>/ig blueprint add &lt;name&gt;</code></td><td>Turn the item in your hand into a reusable blueprint.</td></tr>
+                        <tr><td><code>/ig item find &lt;id&gt;</code></td><td>Find an item and show where it claims to be versus where it really is.</td></tr>
+                        <tr><td><code>/ig item tp &lt;id&gt;</code></td><td>Teleport to an item.</td></tr>
+                        <tr><td><code>/ig item recover &lt;id&gt; confirm</code></td><td>Rebuild a lost item from its stored copy.</td></tr>
+                        <tr><td><code>/ig item seize &lt;id&gt;</code></td><td>Take the physical item away from its holder.</td></tr>
+                        <tr><td><code>/ig item unseize &lt;id&gt;</code></td><td>Hand a seized item back to its owner.</td></tr>
+                        <tr><td><code>/ig addons</code></td><td>List the addons that loaded and whether they hooked correctly.</td></tr>
+                        <tr><td><code>/ig reload</code></td><td>Reload <code>config.yml</code> and the language files.</td></tr>
+                        <tr><td><code>/ig version</code></td><td>Show the plugin version.</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="installation">&larr; Installation</a>
+                    <a class="pager-next" data-goto="permissions">Permissions &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-permissions" data-group="Documentation"
+                     data-title="Permissions" data-keywords="admin node op ops-are-admins grant access">
+                <div class="crumbs">Documentation</div>
+                <h1>Permissions</h1>
+                <p>Nothing is granted by default — not even to operators. Give one person <code>itemguard.admin</code> and they get the whole plugin, or hand out the individual nodes instead.</p>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Node</th><th>What it allows</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>itemguard.admin</code></td><td>Everything in ItemGuard, and nothing outside it.</td></tr>
+                        <tr><td><code>itemguard.give</code></td><td>Hand out tracked items with <code>/ig give</code>.</td></tr>
+                        <tr><td><code>itemguard.blueprint</code></td><td>Create, overwrite, hand back and delete blueprints.</td></tr>
+                        <tr><td><code>itemguard.item.read</code></td><td>Look items up: <code>/ig item find, tp, list, info</code>.</td></tr>
+                        <tr><td><code>itemguard.item.write</code></td><td>Move items around: <code>/ig item recover, seize, unseize</code>.</td></tr>
+                        <tr><td><code>itemguard.reload</code></td><td>Reload the config and translations.</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>Want operators to have everything?</strong> Set <code>permissions.ops-are-admins: true</code> in <code>config.yml</code>. It's read once at startup, so a reload won't change it — you'll need a restart.
+                </div>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="commands">&larr; Commands</a>
+                    <a class="pager-next" data-goto="configuration">Configuration &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-configuration" data-group="Documentation"
+                     data-title="Configuration" data-keywords="config.yml lang storage watcher placeholders ledger retention timezone">
+                <div class="crumbs">Documentation</div>
+                <h1>Configuration</h1>
+                <p>Everything lives in <code>plugins/ItemGuard/config.yml</code>. Edit it, then run <code>/ig reload</code> — or restart if you changed something that's only read at boot.</p>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Key</th><th>What it does</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>lang</code></td><td>Language for all messages. Options: en, es, de, fr, it, nl, pl, pt-br, ru.</td></tr>
+                        <tr><td><code>storage.file</code></td><td>Name of the SQLite file. Back it up — it holds everything ItemGuard knows.</td></tr>
+                        <tr><td><code>storage.busy-timeout-ms</code></td><td>How long to wait on a locked database before giving up.</td></tr>
+                        <tr><td><code>watcher.interval-seconds</code></td><td>How often to verify items that can be place-checked. Set to <code>0</code> to turn the sweep off.</td></tr>
+                        <tr><td><code>placeholders.date-format</code></td><td>Date format used in item names and lore.</td></tr>
+                        <tr><td><code>placeholders.time-zone</code></td><td>Time zone for those dates, or leave empty for the server default.</td></tr>
+                        <tr><td><code>console.allow</code></td><td>Which commands the console may run: give, blueprint, item.</td></tr>
+                        <tr><td><code>ledger.retention</code></td><td>How many moves to keep per item. <code>0</code> keeps everything.</td></tr>
+                        <tr><td><code>permissions.ops-are-admins</code></td><td>Give operators every command without individual nodes. Read at startup.</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="permissions">&larr; Permissions</a>
+                    <a class="pager-next" data-goto="flags">Protection flags &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-flags" data-group="Documentation"
+                     data-title="Protection flags" data-keywords="flags droppable pickupable movable stowable hopper craftable explosion void placeable wear recoverable family">
+                <div class="crumbs">Documentation</div>
+                <h1>Protection flags</h1>
+                <p>Every tracked item has 33 flags. Each one is named after the action it controls, not the protection — <code>droppable: false</code> means "this item can't be dropped". They're grouped into five families.</p>
+
+                <div class="filter-wrap">
+                    <input type="search" id="flag-filter" class="filter" placeholder="Filter flags…" autocomplete="off" spellcheck="false">
+                </div>
+
+                <div class="flag-group" data-family="Move">
+                    <h3>Move</h3>
+                    <table class="table flag-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>droppable</code></td><td>nobody</td><td>Whether the owner can drop the item on the ground.</td></tr>
+                            <tr><td><code>pickupable</code></td><td>owner only</td><td>Whether the owner can pick the item back up off the ground.</td></tr>
+                            <tr><td><code>movable</code></td><td>everyone</td><td>Whether a slot can be rearranged inside one inventory.</td></tr>
+                            <tr><td><code>stowable</code></td><td>everyone</td><td>Whether the item can go into a container.</td></tr>
+                            <tr><td><code>retrievable</code></td><td>everyone</td><td>Whether the item can be taken back out of a container.</td></tr>
+                            <tr><td><code>swappable</code></td><td>everyone</td><td>Whether the item can be swapped between hands.</td></tr>
+                            <tr><td><code>drop-on-death</code></td><td>nobody</td><td>Whether the item drops to the ground when its owner dies.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flag-group" data-family="Machine">
+                    <h3>Machine</h3>
+                    <table class="table flag-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>hopper-transfer</code></td><td>nobody</td><td>Whether a hopper can move the item.</td></tr>
+                            <tr><td><code>dispenser-take</code></td><td>nobody</td><td>Whether a dispenser can pull the item out.</td></tr>
+                            <tr><td><code>smeltable</code></td><td>nobody</td><td>Whether the item can be smelted in a furnace.</td></tr>
+                            <tr><td><code>brewable</code></td><td>nobody</td><td>Whether the item can be used as a brewing ingredient.</td></tr>
+                            <tr><td><code>smithable</code></td><td>nobody</td><td>Whether the item can be used at a smithing table.</td></tr>
+                            <tr><td><code>anvilable</code></td><td>nobody</td><td>Whether the item can be used as an anvil material.</td></tr>
+                            <tr><td><code>craftable</code></td><td>nobody</td><td>Whether the item can be used as a crafting ingredient.</td></tr>
+                            <tr><td><code>enchantable</code></td><td>nobody</td><td>Whether the item can be enchanted.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flag-group" data-family="Use">
+                    <h3>Use</h3>
+                    <table class="table flag-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>usable</code></td><td>everyone</td><td>Whether the item can be used.</td></tr>
+                            <tr><td><code>consumable</code></td><td>everyone</td><td>Whether the item can be eaten or drunk.</td></tr>
+                            <tr><td><code>wear</code></td><td>everyone</td><td>Whether the item can lose durability.</td></tr>
+                            <tr><td><code>breakable</code></td><td>everyone</td><td>Whether the item can break from use.</td></tr>
+                            <tr><td><code>repairable</code></td><td>everyone</td><td>Whether the item can be repaired or renamed on an anvil.</td></tr>
+                            <tr><td><code>placeable</code></td><td>nobody</td><td>Whether the item can be placed as a block.</td></tr>
+                            <tr><td><code>block-breakable</code></td><td>owner only</td><td>Whether only the owner can break the block they placed.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flag-group" data-family="World">
+                    <h3>World</h3>
+                    <table class="table flag-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>hurt</code></td><td>nobody</td><td>Whether the item or its placed block can take damage.</td></tr>
+                            <tr><td><code>burnable</code></td><td>nobody</td><td>Whether the item can burn in fire or lava.</td></tr>
+                            <tr><td><code>explosion-proof</code></td><td>nobody</td><td>Whether an explosion can reach the item.</td></tr>
+                            <tr><td><code>piston-movable</code></td><td>nobody</td><td>Whether a piston can move the placed block.</td></tr>
+                            <tr><td><code>liquid-proof</code></td><td>nobody</td><td>Whether a liquid can carry the item away.</td></tr>
+                            <tr><td><code>physics-stable</code></td><td>nobody</td><td>Whether world physics can move or destroy the placed block.</td></tr>
+                            <tr><td><code>decay</code></td><td>nobody</td><td>Whether the placed block can decay over time.</td></tr>
+                            <tr><td><code>despawn</code></td><td>nobody</td><td>Whether the dropped item can despawn after a while.</td></tr>
+                            <tr><td><code>void-proof</code></td><td>nobody</td><td>Whether the item can fall into the void.</td></tr>
+                            <tr><td><code>weather-proof</code></td><td>nobody</td><td>Whether lightning or rain can reach the item.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flag-group" data-family="Admin">
+                    <h3>Admin</h3>
+                    <table class="table flag-table">
+                        <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>recoverable</code></td><td>everyone</td><td>Whether the item can be rebuilt from its stored copy.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="muted" id="flag-empty" hidden>No flags match that filter.</p>
+
+                <div class="callout">
+                    <strong>What happens when something is refused.</strong> ItemGuard either cancels the event, undoes it after the fact, or rebuilds the item. If a refused action would have destroyed the item, it's queued for redelivery instead — so the owner gets it back rather than losing it to a rule that was supposed to protect them.
+                </div>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="configuration">&larr; Configuration</a>
+                    <a class="pager-next" data-goto="placeholders">Placeholders &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-placeholders" data-group="Documentation"
+                     data-title="Placeholders" data-keywords="placeholders tokens ig owner id uuid flag date iso epoch location world state material blueprint version pinned">
+                <div class="crumbs">Documentation</div>
+                <h1>Placeholders</h1>
+                <p>Item names and lore can contain tokens that get filled in when an item is issued. Use them in a blueprint to stamp each copy with its own ID, owner, date and flags.</p>
+
+                <div class="callout">
+                    <strong>They resolve once, at issue.</strong> A token is filled against the item being created, never against the blueprint. So a sword whose lore says <code>Owned by {ig.owner}</code> records the buyer's name the moment it's delivered — and <code>blueprint get</code> still hands back the recipe with the token untouched.
+                </div>
+
+                <h2>Two syntaxes</h2>
+                <p>Either form works and means the same thing. Only the <code>ig.</code> and <code>itemguard.</code> prefixes are touched, so someone else's <code>{owner}</code> is left alone. The braced form is the one to prefer, because dots survive in keys like <code>drop-on-death</code>.</p>
+                <table class="table">
+                    <thead>
+                        <tr><th>Braced</th><th>Percent</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>{ig.owner}</code></td><td><code>%ig_owner%</code></td></tr>
+                        <tr><td><code>{ig.flag:droppable}</code></td><td><code>%ig_flag_droppable%</code></td></tr>
+                        <tr><td><code>{ig.flag:drop-on-death}</code></td><td><code>%ig_flag_drop_on_death%</code></td></tr>
+                        <tr><td><code>{itemguard.version}</code></td><td><code>%itemguard_version%</code></td></tr>
+                    </tbody>
+                </table>
+                <p class="muted">An unknown key isn't blanked — it's left exactly as you wrote it, so a typo shows up on <code>blueprint get</code> instead of quietly disappearing.</p>
+
+                <h2>Identity</h2>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.id}</code></td><td>The instance ID, e.g. <code>ig-7-3f2a</code>. Aliases: <code>{ig.instance}</code>, <code>{ig.instance_id}</code>, <code>{ig.ti_id}</code>.</td></tr>
+                        <tr><td><code>{ig.blueprint}</code></td><td>The blueprint the item came from. Aliases: <code>{ig.template}</code>, <code>{ig.ti_template}</code>.</td></tr>
+                        <tr><td><code>{ig.material}</code></td><td>The base item type, e.g. <code>DIAMOND_PICKAXE</code>.</td></tr>
+                        <tr><td><code>{ig.amount}</code></td><td>Always <code>1</code> — ItemGuard issues one item at a time. Alias: <code>{ig.stack_size}</code>.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Owner</h2>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.owner}</code></td><td>The name of the player it was delivered to. Falls back to the UUID if the name can't be resolved. Aliases: <code>{ig.player}</code>, <code>{ig.ti_owner}</code>.</td></tr>
+                        <tr><td><code>{ig.owner_uuid}</code></td><td>The owner's UUID. Alias: <code>{ig.owner_id}</code>.</td></tr>
+                        <tr><td><code>{ig.owner_id_short}</code></td><td>The first 8 characters of the owner's UUID.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Dates &amp; time</h2>
+                <p>All of these read from the delivery date. <code>{ig.date}</code> uses the format set by <code>placeholders.date-format</code> in <code>config.yml</code>, which defaults to <code>dd/MM/yyyy</code>.</p>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.date}</code></td><td>The delivery date in the configured format. Aliases: <code>{ig.issued}</code>, <code>{ig.created}</code>, <code>{ig.delivered}</code>.</td></tr>
+                        <tr><td><code>{ig.date:short}</code></td><td><code>dd/MM/yyyy</code>.</td></tr>
+                        <tr><td><code>{ig.date:medium}</code></td><td>Localised medium date.</td></tr>
+                        <tr><td><code>{ig.date:long}</code></td><td>Localised long date, e.g. <code>5 October 2026</code>.</td></tr>
+                        <tr><td><code>{ig.date:time}</code></td><td><code>HH:mm:ss</code>.</td></tr>
+                        <tr><td><code>{ig.date:datetime}</code></td><td><code>dd/MM/yyyy HH:mm</code>.</td></tr>
+                        <tr><td><code>{ig.date:iso}</code></td><td>ISO-8601, e.g. <code>2026-10-05T20:43:19Z</code>. Alias: <code>{ig.iso}</code>.</td></tr>
+                        <tr><td><code>{ig.year}</code> <code>{ig.month}</code> <code>{ig.day}</code></td><td>The delivery date, one field at a time.</td></tr>
+                        <tr><td><code>{ig.hour}</code> <code>{ig.minute}</code> <code>{ig.second}</code></td><td>The delivery time, one field at a time.</td></tr>
+                        <tr><td><code>{ig.epoch}</code></td><td>Seconds since 1970.</td></tr>
+                        <tr><td><code>{ig.epoch_millis}</code></td><td>Milliseconds since 1970.</td></tr>
+                    </tbody>
+                </table>
+                <p class="muted">Each date style also has an underscore alias: <code>{ig.date_short}</code>, <code>{ig.date_medium}</code>, <code>{ig.date_long}</code>, <code>{ig.date_time}</code>, <code>{ig.date_datetime}</code>, <code>{ig.date_iso}</code>. The <code>issued_</code> variants work too — <code>{ig.issued_short}</code>, <code>{ig.issued_iso}</code> and so on.</p>
+
+                <h2>State &amp; location</h2>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.state}</code></td><td>One of <code>tracked</code>, <code>queued</code> or <code>lost</code>.</td></tr>
+                        <tr><td><code>{ig.location}</code></td><td>Where the item is, in words — e.g. <code>inventory:SrIruma</code>, <code>container:...</code>, <code>ground:...</code>, <code>block:...</code>.</td></tr>
+                        <tr><td><code>{ig.world}</code></td><td>The world name, empty when the item isn't in one.</td></tr>
+                        <tr><td><code>{ig.x}</code> <code>{ig.y}</code> <code>{ig.z}</code></td><td>The coordinates, empty when there are none.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Flags</h2>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.flag:&lt;act&gt;}</code></td><td>Who may perform that act. <code>{ig.flag:droppable}</code> gives the permission name for dropping.</td></tr>
+                        <tr><td><code>{ig.flag:&lt;act&gt;.pinned}</code></td><td><code>true</code> when that flag was pinned explicitly on this item.</td></tr>
+                        <tr><td><code>{ig.flags}</code></td><td>Every flag that differs from the defaults, as <code>key=value</code> pairs — or <code>default</code> when nothing was changed.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Plugin</h2>
+                <table class="table">
+                    <thead><tr><th>Placeholder</th><th>What it gives</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>{ig.plugin}</code></td><td>Always <code>ItemGuard</code>.</td></tr>
+                        <tr><td><code>{ig.version}</code></td><td>The plugin version.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Examples</h2>
+                <pre><code>Owned by {ig.owner}
+Issued {ig.date:long} · {ig.id}
+Droppable? {ig.flag:droppable}
+%ig_material% #%ig_owner_id_short%</code></pre>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="flags">&larr; Protection flags</a>
+                    <a class="pager-next" data-goto="api-overview">Addon API &rarr;</a>
+                </div>
+            </section>
+
+            <!-- ============================== API ============================== -->
+            <section class="page" id="page-api-overview" data-group="Addon API"
+                     data-title="Getting started" data-keywords="maven dependency provided service loader meta-inf services registration bridge">
+                <div class="crumbs">Addon API</div>
+                <h1>Getting started</h1>
+                <p class="lead">Write a bridge between ItemGuard and another plugin. The API is free and MIT-licensed.</p>
+
+                <p>It's one interface and one service file. There's no registration call and you don't depend on ItemGuard's classes — implement <code>ItemGuardIntegration</code>, list your class in <code>META-INF/services/</code>, and ItemGuard loads it on startup.</p>
+
+                <h2>Add the dependency</h2>
+                <p>Pull in the API as <code>provided</code>, so it's never bundled into your JAR.</p>
+                <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;dev.mugi&lt;/groupId&gt;
+  &lt;artifactId&gt;itemguard-api&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+
+                <h2>Register the bridge</h2>
+                <p>Create <code>META-INF/services/dev.mugi.itemguard.addon.ItemGuardIntegration</code> in your JAR and put the fully qualified name of your class in it:</p>
+                <pre><code>com.example.MyBridge</code></pre>
+
+                <div class="pager">
+                    <span></span>
+                    <a class="pager-next" data-goto="api-interface">The interface &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-api-interface" data-group="Addon API"
+                     data-title="ItemGuardIntegration" data-keywords="interface name displayname author description version icon tags requiredplugins isavailable ownsblock onblockremoved onblockplaced onenable">
+                <div class="crumbs">Addon API</div>
+                <h1>The <code>ItemGuardIntegration</code> interface</h1>
+                <p>Everything has a default except <code>name()</code>, so you only override what you actually need.</p>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Method</th><th>Returns</th><th>What it's for</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>name()</code></td><td><code>String</code></td><td><strong>Required.</strong> A short, one-word name shown in <code>/ig addons</code>.</td></tr>
+                        <tr><td><code>displayName()</code></td><td><code>String</code></td><td>A nicer name for screens. Defaults to <code>name()</code>.</td></tr>
+                        <tr><td><code>author()</code></td><td><code>String</code></td><td>Who wrote the bridge. Defaults to <code>"Unknown"</code>.</td></tr>
+                        <tr><td><code>description()</code></td><td><code>String</code></td><td>One sentence on what it does.</td></tr>
+                        <tr><td><code>version()</code></td><td><code>String</code></td><td>Your bridge's version, not ItemGuard's.</td></tr>
+                        <tr><td><code>icon()</code></td><td><code>Material</code></td><td>Icon for the addon screen. Defaults to <code>PAPER</code>.</td></tr>
+                        <tr><td><code>tags()</code></td><td><code>List&lt;String&gt;</code></td><td>Labels for searching or grouping.</td></tr>
+                        <tr><td><code>requiredPlugins()</code></td><td><code>String[]</code></td><td>Plugins that must be installed for the bridge to work.</td></tr>
+                        <tr><td><code>isAvailable(PluginContext)</code></td><td><code>boolean</code></td><td>Set up your reflection here and cache it. Return false if the other plugin isn't there.</td></tr>
+                        <tr><td><code>ownsBlock(Block, Location)</code></td><td><code>boolean</code></td><td>Does this block belong to the other plugin? Runs on block events, so keep it fast.</td></tr>
+                        <tr><td><code>onBlockRemoved(Block, Location)</code></td><td><code>void</code></td><td>Tells you a block you claimed has been removed.</td></tr>
+                        <tr><td><code>onBlockPlaced(Player, Block, ItemStack)</code></td><td><code>Map&lt;String,String&gt;</code></td><td>Claim a block at placement time, before ItemGuard has to guess.</td></tr>
+                        <tr><td><code>onEnable(PluginContext)</code></td><td><code>void</code></td><td>Called after the bridge is found and available. Start any repeating work here.</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="api-overview">&larr; Getting started</a>
+                    <a class="pager-next" data-goto="api-context">Context &amp; status &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-api-context" data-group="Addon API"
+                     data-title="Context &amp; status" data-keywords="plugincontext plugin hasplugin logger addonstatus record enabled reason requiredplugins">
+                <div class="crumbs">Addon API</div>
+                <h1>Context &amp; status</h1>
+
+                <h2>PluginContext</h2>
+                <p>Handed to <code>isAvailable</code> and <code>onEnable</code>, so your bridge never has to touch ItemGuard's own classes.</p>
+                <table class="table">
+                    <thead><tr><th>Member</th><th>Returns</th><th>What it's for</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>plugin(String)</code></td><td><code>Plugin</code></td><td>Look up an installed plugin by name, or get null.</td></tr>
+                        <tr><td><code>hasPlugin(String)</code></td><td><code>boolean</code></td><td>Is that plugin installed and enabled?</td></tr>
+                        <tr><td><code>logger()</code></td><td><code>Logger</code></td><td>A logger for your messages. Prefix them with your bridge's name.</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>AddonStatus</h2>
+                <p>A record describing how a bridge is doing. The API returns it so your plugin can show the same thing <code>/ig addons</code> shows.</p>
+                <table class="table">
+                    <thead><tr><th>Field</th><th>Type</th><th>What it's for</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>name</code></td><td><code>String</code></td><td>The bridge's own name.</td></tr>
+                        <tr><td><code>displayName</code></td><td><code>String</code></td><td>A nicer name for screens.</td></tr>
+                        <tr><td><code>author</code></td><td><code>String</code></td><td>Who wrote it.</td></tr>
+                        <tr><td><code>description</code></td><td><code>String</code></td><td>What it does.</td></tr>
+                        <tr><td><code>version</code></td><td><code>String</code></td><td>The bridge's own version.</td></tr>
+                        <tr><td><code>icon</code></td><td><code>Material</code></td><td>Material to show.</td></tr>
+                        <tr><td><code>tags</code></td><td><code>List&lt;String&gt;</code></td><td>Free-form labels.</td></tr>
+                        <tr><td><code>enabled</code></td><td><code>boolean</code></td><td>Did it hook successfully?</td></tr>
+                        <tr><td><code>reason</code></td><td><code>String</code></td><td>Why it didn't hook, or null if it did.</td></tr>
+                        <tr><td><code>requiredPlugins</code></td><td><code>String[]</code></td><td>What has to be installed for it to work.</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="api-interface">&larr; The interface</a>
+                    <a class="pager-next" data-goto="api-rules">Rules &amp; example &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-api-rules" data-group="Addon API"
+                     data-title="Rules &amp; example" data-keywords="never throw classloader cache ownsblock example bridge reflection">
+                <div class="crumbs">Addon API</div>
+                <h1>Rules &amp; example</h1>
+
+                <h2>Worth keeping in mind</h2>
+                <ul>
+                    <li><strong>Don't throw.</strong> Every call is wrapped. If your code throws, the bridge gets marked unavailable and you've already eaten the block event that triggered it.</li>
+                    <li><strong>Don't compile against the other plugin.</strong> Look it up by name at runtime and load its classes from its own loader, so your bridge loads whether or not that plugin is installed.</li>
+                    <li><strong>Stay fast.</strong> <code>ownsBlock</code> runs on block events — resolve your reflection once in <code>isAvailable</code> and cache it.</li>
+                    <li><strong>Return false when you're not sure.</strong> Claiming a block you don't own means staff can't find or seize it later.</li>
+                </ul>
+
+                <h2>Full example</h2>
+                <pre><code>public final class MyBridge implements ItemGuardIntegration {
+    private Method lookup;
+    private Object api;
+
+    public String name() { return "MyPlugin"; }
+
+    public boolean isAvailable(PluginContext context) {
+        Plugin p = context.plugin("MyPlugin");
+        if (p == null || !p.isEnabled()) return false;
+        try {
+            this.api = Class.forName("com.example.api.Api", false,
+                    p.getClass().getClassLoader())
+                .getMethod("get").invoke(null);
+            this.lookup = this.api.getClass()
+                .getMethod("findAt", Location.class);
+            return true;
+        } catch (ReflectiveOperationException e) {
+            context.logger().warning("MyPlugin API not found: " + e);
+            return false;
+        }
+    }
+
+    public boolean ownsBlock(Block block, Location location) {
+        if (this.lookup == null) return false;
+        try {
+            return this.lookup.invoke(this.api, location) != null;
+        } catch (ReflectiveOperationException e) {
+            return false;
+        }
+    }
+}</code></pre>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="api-context">&larr; Context &amp; status</a>
+                    <a class="pager-next" data-goto="api-downloads">Downloads &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-api-downloads" data-group="Addon API"
+                     data-title="API downloads" data-keywords="download jar sources javadoc mit license artifact">
+                <div class="crumbs">Addon API</div>
+                <h1>API downloads</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>File</th><th>What it's for</th><th>Download</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>itemguard-api.jar</code></td>
+                            <td>Compiled API to build against.</td>
+                            <td><a class="btn" href="api/itemguard-api.jar" download>Download</a></td>
+                        </tr>
+                        <tr>
+                            <td><code>itemguard-api-sources.jar</code></td>
+                            <td>The API sources, if you want to read them.</td>
+                            <td><a class="btn" href="api/itemguard-api-sources.jar" download>Download</a></td>
+                        </tr>
+                        <tr>
+                            <td><code>itemguard-api-javadoc.jar</code></td>
+                            <td>Generated Javadoc.</td>
+                            <td><a class="btn" href="api/itemguard-api-javadoc.jar" download>Download</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="muted">MIT licensed. Use it and ship it with your addon however you like.</p>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="api-rules">&larr; Rules &amp; example</a>
+                    <a class="pager-next" data-goto="addons">Community addons &rarr;</a>
+                </div>
+            </section>
+
+            <!-- ============================= ADDONS ============================= -->
+            <section class="page" id="page-addons" data-group="Community Addons"
+                     data-title="Available addons" data-keywords="addons bridge smartspawner install jar plugins addons folder">
+                <div class="crumbs">Community Addons</div>
+                <h1>Available addons</h1>
+                <p class="lead">Bridges people have written on top of the API.</p>
+
+                <p>An addon teaches ItemGuard about another plugin's blocks and items. Grab the JAR, drop it in <code>plugins/ItemGuard/addons/</code>, and restart.</p>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Addon</th><th>Author</th><th>What it does</th><th>Download</th></tr>
+                    </thead>
+                    <tbody id="addons-body"></tbody>
+                </table>
+
+                <h2>Installing an addon</h2>
+                <ol>
+                    <li>Download the addon JAR.</li>
+                    <li>Put it in <code>plugins/ItemGuard/addons/</code>.</li>
+                    <li>Restart the server (or reload, if the addon supports it).</li>
+                    <li>Run <code>/ig addons</code> to check it hooked. If it didn't, it'll tell you why.</li>
+                </ol>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="api-downloads">&larr; API downloads</a>
+                    <a class="pager-next" data-goto="addons-submit">Submit an addon &rarr;</a>
+                </div>
+            </section>
+
+            <section class="page" id="page-addons-submit" data-group="Community Addons"
+                     data-title="Submit an addon" data-keywords="submit issue template contribution publish github discussions bug feature">
+                <div class="crumbs">Community Addons</div>
+                <h1>Submit an addon</h1>
+                <p>Built a bridge? Open a submission issue and we'll review it. Once it's accepted, the JAR goes into the repo's <code>addons/</code> folder and shows up on the <a data-goto="addons">Available addons</a> page.</p>
+
+                <ol>
+                    <li>Implement <code>ItemGuardIntegration</code> and register it under <code>META-INF/services/</code>.</li>
+                    <li>Build your JAR against <code>itemguard-api</code> with scope <code>provided</code>.</li>
+                    <li>Open a submission issue using the button below and fill in the fields.</li>
+                    <li>We review, test, and publish it if it checks out.</li>
+                </ol>
+
+                <div class="actions">
+                    <a class="btn btn-primary" href="https://github.com/SrIruma/ItemGuard/issues/new?template=addon_submission.yml" target="_blank" rel="noopener">
+                        Submit your addon
+                    </a>
+                    <a class="btn" href="https://github.com/SrIruma/ItemGuard/issues/new?template=bug_report.yml" target="_blank" rel="noopener">
+                        Report a bug
+                    </a>
+                    <a class="btn" href="https://github.com/SrIruma/ItemGuard/issues/new?template=feature_request.yml" target="_blank" rel="noopener">
+                        Request a feature
+                    </a>
+                    <a class="btn" href="https://github.com/SrIruma/ItemGuard/discussions" target="_blank" rel="noopener">
+                        Ask in Discussions
+                    </a>
+                </div>
+
+                <h2>Before you submit</h2>
+                <ul>
+                    <li>Your <code>name()</code> is unique, lowercase and stable.</li>
+                    <li>The API is a <code>provided</code> dependency — don't bundle it.</li>
+                    <li>Source code is public and there's a direct download for the JAR and the source ZIP.</li>
+                    <li>You've tested it on Paper 1.21+ (and Folia if you can).</li>
+                </ul>
+                <p class="muted">The full requirements live in <a href="https://github.com/SrIruma/ItemGuard/blob/main/COMMUNITY.md" target="_blank" rel="noopener">COMMUNITY.md</a>.</p>
+
+                <div class="pager">
+                    <a class="pager-prev" data-goto="addons">&larr; Available addons</a>
+                    <span></span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <span>ItemGuard © 2024 SrIruma &amp; SrPinkyy</span>
+        <span class="footer-sep">·</span>
+        <a href="https://github.com/SrIruma" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer-sep">·</span>
+        <a href="https://builtbybit.com/resources/itemguard.128433/" target="_blank" rel="noopener">Buy on BuiltByBit</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
