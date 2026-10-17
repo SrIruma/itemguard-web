@@ -9,7 +9,7 @@
         {
             file: "SmartSpawnerBridge.jar",
             name: "SmartSpawner Bridge",
-            author: "SrIruma",
+            author: "SrIruma, SrPinkyy",
             description: "Protects SmartSpawner spawners with ItemGuard ownership.",
             version: "1.0.0",
             href: "addons/SmartSpawnerBridge.jar"

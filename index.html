@@ -55,13 +55,13 @@
 
                 <p>ItemGuard is for servers that give players items worth real money — crate rewards, ranks, custom gear. Once an item is tracked, it gets a unique ID, a record of everywhere it's been, and a set of flags that decide what can happen to it. If something goes wrong, you can trace it, find it and get it back.</p>
 
-                <p>It's a staff tool, so nothing is switched on by default. Operators don't automatically get access — you choose who can touch tracked items and what they can do with them.</p>
+                <p>It's a staff tool. Operators get every command out of the box, and you decide who else may touch tracked items and what they can do with them.</p>
 
                 <h2>What you get</h2>
                 <ul>
                     <li><strong>Unique IDs</strong> — every item gets an ID like <code>IG-7-a4f2</code> that never changes.</li>
                     <li><strong>A full history</strong> — a running log of every move: drops, pickups, container transfers, deaths.</li>
-                    <li><strong>33 flags</strong> — decide exactly what an item can do. Be dropped? Hopper-transferred? Crafted? Burned?</li>
+                    <li><strong>34 flags</strong> — decide exactly what an item can do. Be dropped? Hopper-transferred? Left behind by a broken block? Crafted? Burned?</li>
                     <li><strong>Locked ownership</strong> — the owner is set when the item is issued and doesn't change afterwards.</li>
                     <li><strong>Recovery</strong> — find a missing item, teleport to it, seize it, or rebuild it from its stored copy.</li>
                     <li><strong>SQLite only</strong> — one local file. No database server to run or connect to.</li>
@@ -124,9 +124,11 @@
                         <tr><td><code>/ig item recover &lt;id&gt; confirm</code></td><td>Rebuild a lost item from its stored copy.</td></tr>
                         <tr><td><code>/ig item seize &lt;id&gt;</code></td><td>Take the physical item away from its holder.</td></tr>
                         <tr><td><code>/ig item unseize &lt;id&gt;</code></td><td>Hand a seized item back to its owner.</td></tr>
+                        <tr><td><code>/ig item remove &lt;id&gt; confirm</code></td><td>Delete a tracked item for good. Irreversible.</td></tr>
                         <tr><td><code>/ig addons</code></td><td>List the addons that loaded and whether they hooked correctly.</td></tr>
                         <tr><td><code>/ig reload</code></td><td>Reload <code>config.yml</code> and the language files.</td></tr>
                         <tr><td><code>/ig version</code></td><td>Show the plugin version.</td></tr>
+                        <tr><td><code>/ig help</code></td><td>Show the in-game command list.</td></tr>
                     </tbody>
                 </table>
 
@@ -137,10 +139,10 @@
             </section>
 
             <section class="page" id="page-permissions" data-group="Documentation"
-                     data-title="Permissions" data-keywords="admin node op ops-are-admins grant access">
+                     data-title="Permissions" data-keywords="admin node op default grant access lucksperms permissions plugin">
                 <div class="crumbs">Documentation</div>
                 <h1>Permissions</h1>
-                <p>Nothing is granted by default — not even to operators. Give one person <code>itemguard.admin</code> and they get the whole plugin, or hand out the individual nodes instead.</p>
+                <p>Every node uses the ordinary Bukkit contract, <code>default: op</code>. Operators can run all of ItemGuard's commands right away; a non-operator has none until a permissions plugin grants one. Give one person <code>itemguard.admin</code> and they get the whole plugin, or hand out the individual nodes instead.</p>
 
                 <table class="table">
                     <thead>
@@ -151,13 +153,13 @@
                         <tr><td><code>itemguard.give</code></td><td>Hand out tracked items with <code>/ig give</code>.</td></tr>
                         <tr><td><code>itemguard.blueprint</code></td><td>Create, overwrite, hand back and delete blueprints.</td></tr>
                         <tr><td><code>itemguard.item.read</code></td><td>Look items up: <code>/ig item find, tp, list, info</code>.</td></tr>
-                        <tr><td><code>itemguard.item.write</code></td><td>Move items around: <code>/ig item recover, seize, unseize</code>.</td></tr>
+                        <tr><td><code>itemguard.item.write</code></td><td>Move items around: <code>/ig item recover, seize, unseize, remove</code>.</td></tr>
                         <tr><td><code>itemguard.reload</code></td><td>Reload the config and translations.</td></tr>
                     </tbody>
                 </table>
 
                 <div class="callout">
-                    <strong>Want operators to have everything?</strong> Set <code>permissions.ops-are-admins: true</code> in <code>config.yml</code>. It's read once at startup, so a reload won't change it — you'll need a restart.
+                    <strong>Prefer tighter control?</strong> Any permissions plugin can revoke these nodes — set the ones you don't want to <code>false</code> for the groups that shouldn't have them. ItemGuard only ever asks <code>hasPermission</code>, so the server's permission plugin is always the final word.
                 </div>
 
                 <div class="pager">
@@ -167,10 +169,10 @@
             </section>
 
             <section class="page" id="page-configuration" data-group="Documentation"
-                     data-title="Configuration" data-keywords="config.yml lang storage watcher placeholders ledger retention timezone">
+                     data-title="Configuration" data-keywords="config.yml lang storage watcher placeholders ledger retention timezone suppress messages silent">
                 <div class="crumbs">Documentation</div>
                 <h1>Configuration</h1>
-                <p>Everything lives in <code>plugins/ItemGuard/config.yml</code>. Edit it, then run <code>/ig reload</code> — or restart if you changed something that's only read at boot.</p>
+                <p>Everything lives in <code>plugins/ItemGuard/config.yml</code>. <code>/ig reload</code> re-reads <code>lang</code> and <code>console.allow</code> on the spot; <code>storage</code>, <code>watcher</code>, <code>placeholders</code> and <code>ledger</code> are read at startup, so change those and restart.</p>
 
                 <table class="table">
                     <thead>
@@ -185,9 +187,15 @@
                         <tr><td><code>placeholders.time-zone</code></td><td>Time zone for those dates, or leave empty for the server default.</td></tr>
                         <tr><td><code>console.allow</code></td><td>Which commands the console may run: give, blueprint, item.</td></tr>
                         <tr><td><code>ledger.retention</code></td><td>How many moves to keep per item. <code>0</code> keeps everything.</td></tr>
-                        <tr><td><code>permissions.ops-are-admins</code></td><td>Give operators every command without individual nodes. Read at startup.</td></tr>
                     </tbody>
                 </table>
+
+                <h2>Turning messages off</h2>
+                <p>Don't want a particular line to ever appear? Open the matching <code>lang/messages-&lt;code&gt;.yml</code> and leave its value empty (<code>key: ""</code>) or set it to <code>none</code>, <code>off</code> or <code>false</code>. ItemGuard then sends nothing for it.</p>
+
+                <div class="callout">
+                    <strong>Blank it, don't delete it.</strong> A line you remove is filled back in from the plugin on the next update, because missing keys fall back to the shipped English text. Leaving the value empty keeps it silent for good.
+                </div>
 
                 <div class="pager">
                     <a class="pager-prev" data-goto="permissions">&larr; Permissions</a>
@@ -196,10 +204,10 @@
             </section>
 
             <section class="page" id="page-flags" data-group="Documentation"
-                     data-title="Protection flags" data-keywords="flags droppable pickupable movable stowable hopper craftable explosion void placeable wear recoverable family">
+                     data-title="Protection flags" data-keywords="flags droppable block-loot pickupable movable stowable hopper craftable explosion void placeable wear recoverable family">
                 <div class="crumbs">Documentation</div>
                 <h1>Protection flags</h1>
-                <p>Every tracked item has 33 flags. Each one is named after the action it controls, not the protection — <code>droppable: false</code> means "this item can't be dropped". They're grouped into five families.</p>
+                <p>Every tracked item has 34 flags. Each one is named after the action it controls, not the protection — <code>droppable: false</code> means "this item can't be dropped". They're grouped into five families.</p>
 
                 <div class="filter-wrap">
                     <input type="search" id="flag-filter" class="filter" placeholder="Filter flags…" autocomplete="off" spellcheck="false">
@@ -211,6 +219,7 @@
                         <thead><tr><th>Flag</th><th>Default</th><th>What it controls</th></tr></thead>
                         <tbody>
                             <tr><td><code>droppable</code></td><td>nobody</td><td>Whether the owner can drop the item on the ground.</td></tr>
+                            <tr><td><code>block-loot</code></td><td>everyone</td><td>Whether a broken block may leave the item on the ground. When refused, the item goes straight into the breaker's inventory instead.</td></tr>
                             <tr><td><code>pickupable</code></td><td>owner only</td><td>Whether the owner can pick the item back up off the ground.</td></tr>
                             <tr><td><code>movable</code></td><td>everyone</td><td>Whether a slot can be rearranged inside one inventory.</td></tr>
                             <tr><td><code>stowable</code></td><td>everyone</td><td>Whether the item can go into a container.</td></tr>
